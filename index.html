@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configurateur APC3D 2025</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.module.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Configurateur APC3D 2025</h1>
+    <p>Personnalisez vos impressions 3D avec APC3D</p>
+  </header>
+
+  <div class="config-container">
+    <div class="config-wrapper">
+      <div class="config-left">
+        <input type="file" id="file-input" multiple accept=".stl">
+        <div id="preview-area"></div>
+      </div>
+
+      <div class="config-right">
+        <div id="configurations"></div>
+        <button id="add-config" class="btn-add">+ Ajouter un fichier</button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="generate-quote">Générer le devis</button>
+      <button id="place-order">Commander maintenant</button>
+      <button id="negotiate-prices">Négocier vos tarifs</button>
+    </div>
+  </div>
+
+  <!-- Pop-up pour négocier -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span id="close-popup" class="close">&times;</span>
+      <h2>Négocier vos tarifs</h2>
+      <p>Envoyez-nous votre devis concurrent pour étude :</p>
+      <input type="file" id="negotiation-file" accept=".pdf,.jpg,.png">
+      <textarea placeholder="Votre commentaire (facultatif)"></textarea>
+      <button id="submit-negotiation">Envoyer</button>
+    </div>
+  </div>
+
+  <!-- Correction ICI avec defer pour charger le JS après HTML -->
+  <script src="upload.js" defer></script>
+</body>
+</html>
