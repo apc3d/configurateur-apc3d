@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Configurateur APC3D 2025</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Bandeau de progression -->
+  <div class="progress-bar">
+    <div class="step active">1<br>Chiffrer</div>
+    <div class="step">2<br>Adresse</div>
+    <div class="step">3<br>Détails</div>
+    <div class="step">4<br>Confirmation</div>
+  </div>
+
+  <!-- Zone de drop -->
+  <div class="dropzone-container">
+    <label for="fileUpload" class="dropzone">
+      <div class="plus-icon">+</div>
+      <p><strong>Déposez vos fichiers 3D ici</strong></p>
+      <p>ou Sélectionnez des fichiers</p>
+      <p class="format-info">STL ou STEP</p>
+    </label>
+    <input id="fileUpload" type="file" multiple hidden />
+  </div>
+
+  <!-- Zone d'aperçu pour chaque fichier -->
+  <div id="preview-area"></div>
+
+  <!-- Boutons finaux -->
+  <div class="final-buttons">
+    <button class="btn-outline-blue">Négociez vos tarifs</button>
+    <button class="btn-outline-grey">GÉNÉRER UN DEVIS</button>
+    <button class="btn-orange">COMMANDER MAINTENANT</button>
+  </div>
+
+  <script src="upload.js"></script>
+</body>
+</html>
