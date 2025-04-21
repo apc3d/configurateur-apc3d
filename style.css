@@ -1,0 +1,117 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+}
+
+.progress-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.progress-bar .step {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background: #ccc;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+
+.progress-bar .step.active {
+    background: orange;
+    color: #fff;
+}
+
+#configurateur {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.config-line {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.col {
+    flex: 1;
+    padding: 10px;
+}
+
+.upload-3d label {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    border: 2px dashed #aaa;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.delai-buttons button {
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.options {
+    margin-top: 10px;
+}
+
+.prix {
+    margin: 10px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: center;
+}
+
+.config-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.config-actions textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.bottom-buttons {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.bottom-buttons button {
+    margin: 0 10px;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 2px solid;
+    background: white;
+}
+
+.bottom-buttons .negocier {
+    border-color: blue;
+    color: blue;
+}
+
+.bottom-buttons .devis {
+    border-color: gray;
+    color: gray;
+}
+
+.bottom-buttons .commander {
+    background: orange;
+    color: white;
+    border: none;
+}
