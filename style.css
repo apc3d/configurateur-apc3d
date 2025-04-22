@@ -50,7 +50,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height: 450px;
+  height: 400px;
 }
 
 /* Traits de séparation */
