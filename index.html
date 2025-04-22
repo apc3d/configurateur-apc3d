@@ -8,7 +8,6 @@
 </head>
 <body>
 
-<!-- Bandeau de progression -->
 <div class="progress-bar">
     <div class="step active">Configuration</div>
     <div class="step">Validation</div>
@@ -16,86 +15,94 @@
     <div class="step">Commande terminée</div>
 </div>
 
-<!-- Section d'upload fichier -->
 <div class="upload-section">
-    <label class="upload-label">
-        Déposez votre fichier 3D ici
+    <label for="file-upload" class="upload-label">
+        Déposez votre fichier 3D ici<br>ou Sélectionnez des fichiers<br><span>STL ou STEP</span>
     </label>
+    <input id="file-upload" type="file" hidden>
 </div>
 
-<!-- Section principale -->
 <div class="config-container">
-    
-    <!-- Colonne 1 : Aperçu 3D -->
-    <div class="column">
+    <div class="column preview-column">
         <div class="preview-3d">Aperçu 3D ici</div>
     </div>
 
-    <!-- Colonne 2 : Configuration -->
-    <div class="column">
+    <div class="column column-2">
         <h3>Technologie</h3>
-        <select><option>Choisir la technologie</option></select>
-
+        <select>
+            <option>Choisir la technologie</option>
+        </select>
         <h3>Matériau</h3>
-        <select><option>Choisir le matériau</option></select>
-
+        <select>
+            <option>Choisir le matériau</option>
+        </select>
         <h3>Finition</h3>
-        <select><option>Choisir la finition</option></select>
-
+        <select>
+            <option>Choisir la finition</option>
+        </select>
         <h3>Couleur</h3>
-        <select><option>Choisir la couleur</option></select>
+        <select>
+            <option>Choisir la couleur</option>
+        </select>
     </div>
 
-    <!-- Colonne 3 : Délai et options -->
-    <div class="column">
+    <div class="column column-3">
         <h3>Quantité d'inserts/taraudages</h3>
-        <input type="number" value="0">
-
+        <input type="number" min="0" value="0">
         <h3>Délai de livraison</h3>
         <div class="delivery-buttons">
             <button class="delivery-btn selected">Express 48h</button>
             <button class="delivery-btn">Rapide 3-4j</button>
             <button class="delivery-btn">Standard 7j</button>
         </div>
-
         <div class="checkbox-group">
-            <input type="checkbox" id="expert"><label for="expert">Contrôle du fichier par un expert</label><br>
-            <input type="checkbox" id="orientation"><label for="orientation">Conserver orientation d'origine</label>
+            <label><input type="checkbox"> Contrôle du fichier par un expert</label><br>
+            <label><input type="checkbox"> Conserver orientation d'origine</label>
         </div>
     </div>
 
-    <!-- Colonne 4 : Tarifs -->
-    <div class="column">
+    <div class="column column-4">
         <h3>Quantité</h3>
-        <input type="number" value="1">
-
+        <input type="number" min="1" value="1">
         <h3>Prix unitaire :</h3>
         <p>0 €</p>
-
         <h3>Prix total :</h3>
         <p>0 €</p>
 
         <h3>Tableau des prix</h3>
         <table class="pricing-table">
-            <thead>
-                <tr>
-                    <th>Quantité</th>
-                    <th>Prix unitaire</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>1</td><td>0 €</td><td>0 €</td></tr>
-                <tr><td>5</td><td>0 €</td><td>0 €</td></tr>
-                <tr><td>10</td><td>0 €</td><td>0 €</td></tr>
-            </tbody>
+            <tr>
+                <th>Quantité</th>
+                <th>Prix unitaire</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+                <td>1</td><td>0 €</td><td>0 €</td>
+            </tr>
+            <tr>
+                <td>5</td><td>0 €</td><td>0 €</td>
+            </tr>
+            <tr>
+                <td>10</td><td>0 €</td><td>0 €</td>
+            </tr>
         </table>
     </div>
-
 </div>
 
-<!-- Bandeau du bas -->
 <div class="bottom-bar">
+    <div class="left-icons">
+        <button class="icon-btn">🗑️</button>
+        <button class="icon-btn">➕</button>
+    </div>
+    <div class="right-upload">
+        <label for="file-annex" class="upload-label">
+            Ajouter un fichier annexe (PDF, etc.)
+        </label>
+        <input id="file-annex" type="file" hidden>
+    </div>
+</div>
+
+<div class="action-buttons">
     <button class="btn-outline-blue">Négocier vos tarifs</button>
     <button class="btn-outline-grey">Générer un devis</button>
     <button class="btn-filled-orange">Commander maintenant</button>
