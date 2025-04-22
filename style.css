@@ -5,38 +5,28 @@ body {
   background: #f5f5f5;
 }
 
+/* Progression */
 .progress-bar {
   display: flex;
   justify-content: space-around;
   background: white;
-  padding: 10px 0;
+  padding: 10px;
   border-bottom: 1px solid lightgray;
 }
 
-.progress-bar .step {
+.step {
   color: grey;
-  position: relative;
-  padding: 0 20px;
-  font-size: 14px;
+  padding: 10px 20px;
+  background: lightgrey;
+  border-radius: 5px;
 }
 
-.progress-bar .step.active {
-  color: orange;
-  font-weight: bold;
+.step.active {
+  background: orange;
+  color: white;
 }
 
-/* Trait entre les étapes */
-.progress-bar .step:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 20px;
-  background-color: lightgray;
-}
-
+/* Section Upload */
 .upload-section {
   text-align: center;
   margin: 20px;
@@ -50,25 +40,24 @@ body {
   display: inline-block;
 }
 
+/* Container général */
 .config-container {
   display: flex;
   margin: 20px;
   gap: 10px;
 }
 
+/* Colonnes */
 .column {
   background: white;
   flex: 1;
   padding: 20px;
   border: 1px solid #ddd;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  height: 400px; /* Hauteur fixe ici */
-  overflow-y: auto;
+  overflow: hidden;
+  height: 400px; /* Hauteur fixe */
 }
 
-/* Traits de séparation entre les colonnes */
+/* Traits entre colonnes */
 .column:not(:last-child) {
   border-right: 1px solid #e0e0e0;
 }
@@ -85,22 +74,23 @@ body {
   color: #aaa;
 }
 
-/* Styles spécifiques colonnes */
-.column-2 select, .column-3 input, .column-4 input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  border-radius: 5px;
-}
-
+/* Titres */
 h3 {
   margin: 10px 0 5px 0;
   font-size: 16px;
   color: #333;
 }
 
-/* Délai boutons */
+/* Sélecteurs et inputs */
+.column select,
+.column input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+/* Boutons de délai */
 .delivery-buttons {
   display: flex;
   gap: 5px;
@@ -116,7 +106,6 @@ h3 {
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 14px;
-  border-radius: 5px;
 }
 
 .delivery-btn.selected {
@@ -134,7 +123,7 @@ h3 {
   margin-left: 5px;
 }
 
-/* Tableau des prix */
+/* Tableau */
 .pricing-table {
   width: 100%;
   margin-top: 20px;
@@ -154,31 +143,10 @@ h3 {
 /* Bandeau du bas */
 .bottom-bar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #ddd;
-  padding: 10px 20px;
-  margin: 20px 0 0 0;
-}
-
-.icon-btn {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.right-upload .upload-label {
-  background: #ccc;
-  border: none;
-  padding: 10px 20px;
-}
-
-/* Boutons d'action */
-.action-buttons {
-  text-align: center;
-  margin: 30px;
+  justify-content: center;
+  background: #f5f5f5;
+  padding: 20px;
+  gap: 20px;
 }
 
 .btn-outline-blue {
@@ -186,9 +154,9 @@ h3 {
   color: blue;
   padding: 10px 20px;
   background: none;
-  margin: 5px;
+  border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 .btn-outline-grey {
@@ -196,9 +164,9 @@ h3 {
   color: grey;
   padding: 10px 20px;
   background: none;
-  margin: 5px;
+  border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 .btn-filled-orange {
@@ -206,9 +174,9 @@ h3 {
   background: orange;
   color: white;
   padding: 10px 20px;
-  margin: 5px;
+  border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 /* Hover effets */
