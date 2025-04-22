@@ -1,107 +1,117 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Configurateur APC3D</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Configurateur 3D APC3D</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Barre de progression -->
-  <div class="progress-bar">
+<!-- Barre de progression -->
+<div class="progress-bar">
     <div class="step active">Configuration</div>
     <div class="step">Validation</div>
     <div class="step">Paiement</div>
     <div class="step">Commande terminée</div>
-  </div>
+</div>
 
-  <!-- Zone d'ajout fichier -->
-  <div class="upload-section">
-    <label for="file-upload" class="upload-label">Déposez votre fichier 3D ici</label>
-    <input type="file" id="file-upload" style="display:none;">
-  </div>
+<!-- Section Upload -->
+<div class="upload-section">
+    <label for="file-upload" class="upload-label">Déposez vos fichiers 3D ici ou cliquez pour sélectionner</label>
+    <input id="file-upload" type="file" hidden>
+</div>
 
-  <!-- Bloc de configuration -->
-  <div class="config-container">
-
+<!-- Zone de configuration -->
+<div class="config-container">
     <!-- Colonne 1 : Aperçu 3D -->
     <div class="column column-1">
-      <div class="preview-3d">
-        Aperçu 3D ici
-      </div>
+        <h3>Aperçu 3D</h3>
+        <div class="preview-3d">
+            Aperçu 3D ici
+        </div>
     </div>
 
     <!-- Colonne 2 : Configuration -->
     <div class="column column-2">
-      <h3>Technologie</h3>
-      <select><option>SLS</option><option>MSLA</option></select>
-      <h3>Matériau</h3>
-      <select><option>PA12</option><option>ABS Résine</option></select>
-      <h3>Finition</h3>
-      <select><option>Brut</option><option>Teinture</option></select>
-      <h3>Couleur</h3>
-      <select><option>Noir</option><option>Gris</option></select>
+        <h3>Technologie</h3>
+        <select><option>SLS</option></select>
+
+        <h3>Matériau</h3>
+        <select><option>PA12</option></select>
+
+        <h3>Finition</h3>
+        <select><option>Standard</option></select>
+
+        <h3>Couleur</h3>
+        <select><option>Blanc</option></select>
     </div>
 
-    <!-- Colonne 3 : Options -->
+    <!-- Colonne 3 : Options et délais -->
     <div class="column column-3">
-      <h3>Inserts / Taraudages</h3>
-      <input type="number" value="0">
-      
-      <h3>Délai de livraison</h3>
-      <div class="delivery-buttons">
-        <button class="delivery-btn">Express 48h</button>
-        <button class="delivery-btn">Standard 5-7j</button>
-        <button class="delivery-btn">Économique 10j+</button>
-      </div>
-      
-      <div class="checkbox-group">
-        <input type="checkbox" id="controle-expert"><label for="controle-expert">Contrôle par un expert</label><br>
-        <input type="checkbox" id="conserver-orientation"><label for="conserver-orientation">Conserver orientation</label>
-      </div>
+        <h3>Nombre d'inserts/taraudages</h3>
+        <input type="number" placeholder="0">
+
+        <h3>Délai de livraison</h3>
+        <div class="delivery-buttons">
+            <button class="delivery-btn selected">48H</button>
+            <button class="delivery-btn">5 Jours</button>
+            <button class="delivery-btn">10 Jours</button>
+        </div>
+
+        <div class="checkbox-group">
+            <label><input type="checkbox"> Contrôle par un expert</label><br>
+            <label><input type="checkbox"> Conserver orientation d'origine</label>
+        </div>
     </div>
 
-    <!-- Colonne 4 : Tarifs -->
+    <!-- Colonne 4 : Prix -->
     <div class="column column-4">
-      <h3>Quantité</h3>
-      <input type="number" value="1">
-      <h3>Prix unitaire</h3>
-      <p>xx€</p>
-      <h3>Total</h3>
-      <p>xx€</p>
+        <h3>Quantité souhaitée</h3>
+        <input type="number" placeholder="1">
 
-      <table class="pricing-table">
-        <thead>
-          <tr><th>Quantité</th><th>Prix unitaire</th><th>Total</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>xx€</td><td>xx€</td></tr>
-          <tr><td>5</td><td>xx€</td><td>xx€</td></tr>
-          <tr><td>10</td><td>xx€</td><td>xx€</td></tr>
-        </tbody>
-      </table>
+        <div class="pricing-info">
+            <div>Prix unitaire : XX €</div>
+            <div>Total : XX €</div>
+        </div>
+
+        <h3>Tarifs dégressifs</h3>
+        <table class="pricing-table">
+            <thead>
+                <tr>
+                    <th>Qté</th>
+                    <th>Prix Unitaire</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>XX €</td><td>XX €</td></tr>
+                <tr><td>10</td><td>XX €</td><td>XX €</td></tr>
+                <tr><td>50</td><td>XX €</td><td>XX €</td></tr>
+                <tr><td>100</td><td>XX €</td><td>XX €</td></tr>
+            </tbody>
+        </table>
     </div>
+</div>
 
-  </div>
-
-  <!-- Bandeau du bas -->
-  <div class="bottom-bar">
+<!-- Bandeau du bas -->
+<div class="bottom-bar">
     <div class="left-buttons">
-      <button class="icon-btn">🗑️</button>
-      <button class="icon-btn">➕</button>
+        <button class="icon-btn">➕</button>
+        <button class="icon-btn">🗑️</button>
     </div>
     <div class="right-upload">
-      <input type="file" id="file-annexe" style="display:none;">
-      <label for="file-annexe" class="upload-label">Ajouter un fichier annexe (PDF, etc.)</label>
+        <input type="text" placeholder="Commentaires">
+        <label for="upload-extra" class="upload-label">Déposer un plan 2D / Document</label>
+        <input id="upload-extra" type="file" hidden>
     </div>
-  </div>
+</div>
 
-  <!-- Boutons d'action -->
-  <div class="action-buttons">
+<!-- Boutons finaux -->
+<div class="action-buttons">
     <button class="btn-outline-blue">Négocier les tarifs</button>
     <button class="btn-outline-grey">Créer un devis</button>
     <button class="btn-filled-orange">Commander maintenant</button>
-  </div>
+</div>
 
 <script src="script.js"></script>
 </body>
