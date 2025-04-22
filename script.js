@@ -6,8 +6,7 @@ function initViewer() {
   camera = new THREE.PerspectiveCamera(
     45,
     container.clientWidth / container.clientHeight,
-    0.1,
-    1000
+    0.1, 1000
   );
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(container.clientWidth, container.clientHeight);
@@ -22,11 +21,14 @@ function animate() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const panelWrapper = document.querySelector('.panel-wrapper');
-  const dropzone     = document.querySelector('.dropzone');
-  const file3dUpload = document.getElementById('file3d-upload');
+  const panelWrapper     = document.querySelector('.panel-wrapper');
+  const dropzone         = document.getElementById('initial-dropzone');
+  const file3dUpload     = document.getElementById('file3d-upload');
+  const secondaryUpload  = document.getElementById('secondary-upload');
+  const file3dUpload2    = document.getElementById('file3d-upload2');
+  const loadProgress     = document.getElementById('load-progress');
 
-  // 1️⃣ initial : on cache le panel, on laisse le dropzone et les boutons bas
+  // 1️⃣ initial : on cache le panel, on laisse la dropzone et les boutons bas
   panelWrapper.style.display = 'none';
 
   initViewer();
@@ -55,10 +57,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const file = this.files[0];
     if (!file) return;
 
-    // lecture
+    // Affiche la barre de progression
+    loadProgress.classList.remove('hidden');
+    loadProgress.value = 0;
+
     const reader = new FileReader();
+
+    reader.onprogress = ev => {
+      if (ev.lengthComputable) {
+        loadProgress.value = (ev.loaded / ev.total) * 100;
+      }
+    };
+
     reader.onload = ev => {
-      // parse STL
+      // Parse STL
       const geometry = new THREE.STLLoader().parse(ev.target.result);
       if (mesh) scene.remove(mesh);
       mesh = new THREE.Mesh(
@@ -67,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
       );
       mesh.scale.set(0.5, 0.5, 0.5);
       scene.add(mesh);
-      // recentrage
+      // Recentre
       const center = new THREE.Box3()
         .setFromObject(mesh)
         .getCenter(new THREE.Vector3());
@@ -75,11 +87,23 @@ document.addEventListener('DOMContentLoaded', () => {
       camera.position.set(0, 0, 100);
       camera.lookAt(scene.position);
 
-      // affiche le panel et cache la dropzone
+      // Affiche le panel, cache dropzone et barre de progression
       panelWrapper.style.display = 'block';
       dropzone.style.display     = 'none';
+      loadProgress.classList.add('hidden');
+
+      // Affiche le champ pour un autre upload 3D
+      secondaryUpload.classList.remove('hidden');
     };
+
     reader.readAsArrayBuffer(file);
+  });
+
+  // Upload secondaire
+  secondaryUpload.addEventListener('click', () => file3dUpload2.click());
+  file3dUpload2.addEventListener('change', () => {
+    // ici tu peux déclencher une nouvelle config / ajouter au panier
+    alert('Nouveau 3D chargé : ' + file3dUpload2.files[0].name);
   });
 
   // Quantité / prix
