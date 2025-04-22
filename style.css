@@ -9,17 +9,31 @@ body {
   display: flex;
   justify-content: space-around;
   background: white;
-  padding: 10px;
+  padding: 10px 0;
   border-bottom: 1px solid lightgray;
 }
 
 .progress-bar .step {
   color: grey;
+  position: relative;
+  padding: 0 20px;
+  font-size: 14px;
 }
 
 .progress-bar .step.active {
   color: orange;
   font-weight: bold;
+}
+
+.progress-bar .step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 20px;
+  background-color: lightgray;
 }
 
 .upload-section {
@@ -49,6 +63,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: 400px; /* Hauteur fixe ici */
+  overflow-y: auto;
 }
 
 /* Traits de séparation entre les colonnes */
@@ -78,7 +94,7 @@ body {
 
 h3 {
   margin: 10px 0 5px 0;
-  font-size: 16px;
+  font-size: 13px;
   color: #333;
 }
 
