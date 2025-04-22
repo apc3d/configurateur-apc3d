@@ -1,165 +1,273 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Configuration 3D</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+:root {
+  --orange: #FFA500;
+  --grey-light: #EEEEEE;
+  --grey-med:   #CCCCCC;
+  --grey-dark:  #333333;
+  --blue:       #0057E7;
+  --white:      #FFFFFF;
+  --bg:         #F9F9F9;
+}
 
-  <!-- 1. Bandeau de progression (affichage d'état, pas de bouton) -->
-  <ul class="tabs">
-    <li class="tab active">Configuration</li>
-    <li class="tab">Validation</li>
-    <li class="tab">Paiement</li>
-    <li class="tab">Commande terminée</li>
-  </ul>
+* { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+  color: var(--grey-dark);
+  background: var(--bg);
+  padding: 20px;
+}
 
-  <!-- 2. Toolbar gris avec corbeille, dupliquer, commentaire et import -->
-  <div class="toolbar">
-    <button class="icon-btn" title="Supprimer">🗑️</button>
-    <button class="icon-btn" title="Dupliquer">📋</button>
-    <input type="text" placeholder="Commentaire…">
-    <div class="file-import">
-      <label for="file-upload" class="btn-import">Importer PDF / image</label>
-      <input type="file" id="file-upload" accept=".pdf,.txt,.doc,.docx,.xlsx,.pptx,.jpg,.jpeg,.png">
-      <span id="file-status"></span>
-    </div>
-  </div>
+/* 1. Onglets état (non-cliquables) */
+.tabs {
+  list-style:none;
+  display:flex;
+  gap:4px;
+  margin-bottom:20px;
+}
+.tab {
+  flex:1;
+  text-align:center;
+  padding:12px 0;
+  background: var(--grey-light);
+  color: var(--grey-dark);
+  border-radius:4px;
+  font-weight:500;
+  pointer-events:none;
+}
+.tab.active {
+  background: var(--orange);
+  color: var(--white);
+}
 
-  <!-- 3 & 5. Panel principal en 4 colonnes -->
-  <div class="panel">
+/* 2. Toolbar fichier/commentaire */
+.toolbar {
+  display:flex;
+  align-items:center;
+  background: var(--grey-light);
+  padding:8px;
+  border-radius:4px;
+  gap:8px;
+  margin-bottom:16px;
+}
+.toolbar .icon-btn {
+  font-size:18px;
+  background:none;
+  border:none;
+  cursor:pointer;
+}
+.toolbar input[type="text"] {
+  flex:1;
+  padding:6px;
+  border:1px solid var(--grey-med);
+  border-radius:4px;
+}
+.file-import {
+  position: relative;
+}
+.file-import input[type="file"] {
+  position:absolute;
+  opacity:0;
+  width:0; height:0;
+}
+.btn-import {
+  display:inline-block;
+  padding:6px 12px;
+  background: var(--white);
+  border:1px solid var(--grey-med);
+  border-radius:4px;
+  cursor:pointer;
+  font-size:12px;
+}
+#file-status {
+  margin-left:8px;
+  font-size:12px;
+  color: var(--grey-dark);
+}
 
-    <!-- Aperçu 3D -->
-    <div class="col preview">
-      <div class="box">
-        <img src="placeholder-3d.svg" alt="Aperçu 3D">
-      </div>
-      <p class="dims">
-        Dimensions :<br>
-        120.00 × 65.00 × 10.00 mm<br>
-        Volume : 45.22 cm³
-      </p>
-    </div>
+/* 3 & 5. Panel 4 colonnes */
+.panel {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  background: var(--white);
+  padding: 16px;
+  border: 1px solid var(--grey-med);
+  border-radius: 4px;
+}
 
-    <!-- Sélections (menus déroulants empilés) -->
-    <div class="col settings">
-      <div class="field">
-        <label for="techno">Technologie</label>
-        <select id="techno">
-          <option>FDM</option>
-          <option>SLA</option>
-          <option>SLS</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="material">Matériaux</label>
-        <select id="material">
-          <option>PLA</option>
-          <option>ABS</option>
-          <option>PETG</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="finish">Finition</label>
-        <select id="finish">
-          <option disabled selected>Sélectionnez</option>
-          <option>Brut</option>
-          <option>Poli</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="color">Couleur</label>
-        <select id="color">
-          <option disabled selected>Sélectionnez</option>
-          <option>Blanc</option>
-          <option>Noir</option>
-        </select>
-      </div>
-    </div>
+/* Aperçu */
+.preview .box {
+  width: 120px; height: 120px;
+  background: #F0F0F0;
+  border: 1px solid var(--grey-med);
+  margin-bottom: 8px;
+  display:flex; align-items:center; justify-content:center;
+}
+.preview .dims {
+  font-size: 12px; line-height: 1.4;
+}
 
-    <!-- Extras : slider inserts, délai, cases à cocher -->
-    <div class="col extras">
-      <div class="field">
-        <label for="insertsRange">Inserts / taraudages</label>
-        <div class="slider-container">
-          <input type="range" id="insertsRange" min="0" max="10" value="1">
-          <span id="insertsCount">1</span>
-        </div>
-      </div>
-      <div class="field delivery">
-        <label>Délai de livraison</label>
-        <div class="opts">
-          <div class="opt" data-type="fast">
-            Fast<br><span>Mardi 29 Avril</span>
-          </div>
-          <div class="opt active" data-type="standard">
-            Standard<br><span>Mardi 29 Avril</span>
-          </div>
-          <div class="opt" data-type="eco">
-            Eco<br><span>Mardi 29 Avril</span>
-          </div>
-        </div>
-      </div>
-      <div class="field checks">
-        <label><input type="checkbox"> Contrôle du fichier par un expert</label>
-        <label><input type="checkbox"> Conserver l'orientation originale</label>
-      </div>
-    </div>
+/* Sélections empilées */
+.settings {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.field label {
+  display:block;
+  margin-bottom:4px;
+  font-size:13px;
+}
+.field select {
+  width:100%;
+  padding:6px;
+  border:1px solid var(--grey-med);
+  border-radius:4px;
+  background: var(--white);
+}
 
-    <!-- Récapitulatif tarifs + choix quantité -->
-    <div class="col summary">
-      <div class="summary-header">
-        <div class="field qty-order">
-          <label for="quantity">Quantité</label>
-          <div class="stepper">
-            <button id="dec">–</button>
-            <input type="number" id="quantity" value="1" min="1">
-            <button id="inc">+</button>
-          </div>
-        </div>
-        <div class="field">
-          <label>Unité, EUR</label>
-          <div id="unit-price">198.41</div>
-        </div>
-        <div class="field">
-          <label>Total, EUR</label>
-          <div id="total-price">198.41</div>
-        </div>
-      </div>
-      <table>
-        <thead>
-          <tr><th>Quantité</th><th>Unité (€)</th><th>Total (€)</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>198.41</td><td>198.41</td></tr>
-          <tr><td>2</td><td>196.80</td><td>393.60</td></tr>
-          <tr><td>3</td><td>195.98</td><td>587.94</td></tr>
-          <tr><td>4</td><td>195.46</td><td>781.84</td></tr>
-          <tr><td>5</td><td>195.07</td><td>975.35</td></tr>
-        </tbody>
-      </table>
-    </div>
+/* Slider inserts */
+.slider-container {
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+input[type="range"] {
+  flex:1;
+}
 
-  </div>
+/* Livraison & checks */
+.delivery .opts {
+  display:flex;
+  gap:4px;
+  margin-top:4px;
+}
+.opt {
+  flex:1;
+  padding:8px 4px;
+  border:1px solid var(--grey-med);
+  border-radius:2px;
+  text-align:center;
+  cursor:pointer;
+  font-size:13px;
+}
+.opt span { display:block; font-size:11px; }
+.opt.active {
+  background: var(--orange);
+  color: var(--white);
+  border-color: var(--orange);
+}
+.checks label {
+  display:block;
+  font-size:13px;
+}
+.checks input {
+  margin-right:6px;
+}
 
-  <!-- Dropzone -->
-  <div class="dropzone">
-    <div class="dz-content">
-      <div class="plus">+</div>
-      <p>Déposez vos fichiers 3D ici<br>ou Sélectionnez des fichiers STL ou STEP</p>
-    </div>
-  </div>
+/* Récap tarifs */
+.summary {
+  display:flex;
+  flex-direction:column;
+}
+.summary-header {
+  display:flex;
+  gap:16px;
+  margin-bottom:12px;
+  align-items:flex-end;
+}
+.summary-header .field {
+  display:flex;
+  flex-direction:column;
+}
+.summary-header .field label {
+  font-size:13px;
+  margin-bottom:4px;
+}
+.summary-header #unit-price,
+.summary-header #total-price {
+  background: var(--orange);
+  color: var(--white);
+  padding:4px 8px;
+  border-radius:2px;
+  font-size:14px;
+  text-align:center;
+}
+.stepper {
+  display:flex;
+  align-items:center;
+}
+.stepper button {
+  width:28px; height:28px;
+  border:1px solid var(--grey-med);
+  background: var(--white);
+  cursor:pointer;
+  font-size:16px;
+}
+.stepper input {
+  width: 48px;
+  text-align:center;
+  border-top:1px solid var(--grey-med);
+  border-bottom:1px solid var(--grey-med);
+}
 
-  <!-- Boutons bas -->
-  <div class="actions">
-    <button class="btn negotiate">Négocier vos tarifs</button>
-    <button class="btn quote">Générer un devis</button>
-    <button class="btn order">Commander maintenant</button>
-  </div>
+/* Tableau */
+table {
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+table th, table td {
+  border:1px solid var(--grey-med);
+  padding:4px;
+  text-align:center;
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+/* Dropzone */
+.dropzone {
+  margin: 24px 0;
+  padding: 40px 0;
+  text-align:center;
+  border:2px dashed var(--grey-med);
+  background: var(--white);
+  border-radius:4px;
+}
+.dropzone .plus {
+  font-size:32px;
+  color: var(--grey-med);
+  margin-bottom:8px;
+}
+.dropzone p {
+  font-size:14px;
+  line-height:1.4;
+}
+
+/* Actions bas */
+.actions {
+  display:flex;
+  justify-content:flex-end;
+  gap:12px;
+}
+.btn {
+  font-size:14px;
+  padding:10px 24px;
+  border-radius:4px;
+  font-weight:600;
+  cursor:pointer;
+}
+.negotiate {
+  border:2px solid var(--blue);
+  background: var(--white);
+  color: var(--blue);
+}
+.quote {
+  border:1px solid var(--grey-med);
+  background: var(--white);
+  color: var(--grey-dark);
+}
+.order {
+  border:none;
+  background: var(--orange);
+  color: var(--white);
+}
 
