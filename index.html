@@ -17,19 +17,28 @@
     <li class="tab">Commande terminée</li>
   </ul>
 
-  <!-- Conteneur de toutes les configs -->
+  <!-- Conteneur pour toutes les configs -->
   <div id="configs-container"></div>
 
-  <!-- Dropzone initiale (hors cadre) -->
-  <div class="dropzone" id="initial-dropzone">
+  <!-- 2. Dropzone secondaire (hors cadre), cachée initialement -->
+  <div class="dropzone secondary-dropzone hidden" id="secondary-dropzone">
+    <input type="file" id="file3d-upload2" accept=".stl,.step,.stp" hidden />
     <div class="dz-content">
       <div class="plus">+</div>
-      <p>Déposez vos fichiers 3D ici<br />ou sélectionnez un STL / STEP</p>
+      <p>Déposez vos fichiers 3D ici<br />ou sélectionnez un STL / STEP</p>
     </div>
-    <input type="file" id="file3d-upload-init" accept=".stl,.step,.stp" hidden />
   </div>
 
-  <!-- Boutons bas -->
+  <!-- 3. Dropzone initiale interactive (hors cadre) -->
+  <div class="dropzone" id="initial-dropzone">
+    <input type="file" id="file3d-upload-init" accept=".stl,.step,.stp" hidden />
+    <div class="dz-content">
+      <div class="plus">+</div>
+      <p>Déposez vos fichiers 3D ici<br />ou sélectionnez un STL / STEP</p>
+    </div>
+  </div>
+
+  <!-- 4. Boutons bas -->
   <div class="actions">
     <button class="btn negotiate">Négocier vos tarifs</button>
     <button class="btn quote">Générer un devis</button>
@@ -39,10 +48,8 @@
   <!-- Template d’une configuration complète -->
   <template id="config-template">
     <div class="panel-wrapper">
-
-      <!-- 2. Panel 4 colonnes -->
       <div class="panel">
-        <!-- Colonne 1 -->
+        <!-- Colonne 1 : Aperçu 3D -->
         <div class="col preview">
           <div class="viewer">
             <div class="progress-overlay hidden"><span>0%</span></div>
@@ -54,8 +61,7 @@
             Volume : 45.22 cm³
           </p>
         </div>
-
-        <!-- Colonne 2 -->
+        <!-- Colonne 2 : Sélections -->
         <div class="col settings">
           <div class="field">
             <label>Technologie</label>
@@ -80,8 +86,7 @@
             </select>
           </div>
         </div>
-
-        <!-- Colonne 3 -->
+        <!-- Colonne 3 : Extras -->
         <div class="col extras">
           <div class="field">
             <label>Inserts / taraudages</label>
@@ -103,8 +108,7 @@
             <label><input type="checkbox" /> Conserver l'orientation originale</label>
           </div>
         </div>
-
-        <!-- Colonne 4 -->
+        <!-- Colonne 4 : Récapitulatif -->
         <div class="col summary">
           <div class="summary-header">
             <div class="field qty-order">
@@ -134,8 +138,7 @@
           </table>
         </div>
       </div>
-
-      <!-- 3. Toolbar GRIS (INTÉGRÉ au cadre) -->
+      <!-- Toolbar gris INTÉGRÉ dans le cadre -->
       <div class="toolbar">
         <div class="toolbar-left">
           <button class="icon-btn" title="Supprimer"><i class="material-icons">delete</i></button>
@@ -143,11 +146,13 @@
         </div>
         <div class="toolbar-right">
           <input type="text" placeholder="Commentaire…" />
-          <!-- input file VISIBLE -->
-          <input type="file" accept=".pdf,.txt,.doc,.docx,.xlsx,.pptx,.jpg,.jpeg,.png" class="file-import" />
+          <input
+            type="file"
+            class="file-import"
+            accept=".pdf,.txt,.doc,.docx,.xlsx,.pptx,.jpg,.jpeg,.png"
+          />
         </div>
       </div>
-
     </div>
   </template>
 
