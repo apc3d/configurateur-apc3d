@@ -52,7 +52,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height: 550px; /* <-- hauteur fixe réglable ici */
+  height: 350px; /* <-- hauteur fixe réglable ici */
   overflow-y: auto;
 }
 
