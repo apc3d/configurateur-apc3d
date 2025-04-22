@@ -46,66 +46,10 @@ body {
   flex: 1;
   padding: 20px;
   border: 1px solid #ddd;
-}
-
-.pricing-table {
-  width: 100%;
-  margin-top: 10px;
-}
-
-.pricing-table th, .pricing-table td {
-  border: 1px solid #ddd;
-  padding: 5px;
-  text-align: center;
-}
-
-.bottom-bar {
   display: flex;
-  justify-content: space-between;
-  background: #ddd;
-  padding: 10px;
-  margin: 20px;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.icon-btn {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.right-upload .upload-label {
-  background: #ccc;
-}
-
-.action-buttons {
-  text-align: center;
-  margin: 30px;
-}
-
-.btn-outline-blue {
-  border: 2px solid blue;
-  color: blue;
-  padding: 10px 20px;
-  background: none;
-  margin: 5px;
-  cursor: pointer;
-}
-
-.btn-outline-grey {
-  border: 2px solid grey;
-  color: grey;
-  padding: 10px 20px;
-  background: none;
-  margin: 5px;
-  cursor: pointer;
-}
-
-.btn-filled-orange {
-  border: none;
-  background: orange;
-  color: white;
-  padding: 10px 20px;
-  margin: 5px;
-  cursor: pointer;
-}
+/* Traits de séparation entre les colonnes */
+.column:not(:last
