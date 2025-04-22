@@ -1,139 +1,131 @@
+import * as THREE from 'three';
+import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
+
 let scene, camera, renderer, mesh;
 
 function initViewer(container) {
   scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(45, container.clientWidth/container.clientHeight, 0.1, 1000);
+  camera = new THREE.PerspectiveCamera(
+    45,
+    container.clientWidth / container.clientHeight,
+    0.1,
+    1000
+  );
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(container.clientWidth, container.clientHeight);
   container.appendChild(renderer.domElement);
   scene.add(new THREE.AmbientLight(0x404040));
   animate();
 }
-
 function animate() {
   requestAnimationFrame(animate);
   if (mesh) mesh.rotation.y += 0.01;
   renderer.render(scene, camera);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+// Génère une nouvelle config à chaque upload
+function createConfig(file) {
   const container = document.getElementById('configs-container');
-  const template  = document.getElementById('config-template');
-  const initDrop  = document.getElementById('initial-dropzone');
-  const initInput = document.getElementById('file3d-upload-init');
+  const tpl       = document.getElementById('config-template');
+  const clone     = tpl.content.cloneNode(true);
+  container.appendChild(clone);
 
-  function setupConfig(file) {
-    // Cloner
-    const clone = template.content.cloneNode(true);
-    container.appendChild(clone);
+  const wrapper    = container.lastElementChild;
+  const viewerEl   = wrapper.querySelector('.viewer');
+  const overlay    = wrapper.querySelector('.progress-overlay');
+  const overlayTxt = overlay.querySelector('span');
+  const fileInput  = wrapper.querySelector('.file3d-upload');
+  const qtyInput   = wrapper.querySelector('.quantity');
+  const unitPrice  = wrapper.querySelector('.unit-price');
+  const totalPrice = wrapper.querySelector('.total-price');
+  const slider     = wrapper.querySelector('.inserts-range');
+  const sliderCnt  = wrapper.querySelector('.inserts-count');
+  const opts       = wrapper.querySelectorAll('.opt');
+  const import2D   = wrapper.querySelector('.file-import');
 
-    // Récupérer les éléments du clone
-    const wrapper     = container.lastElementChild;
-    const viewerEl    = wrapper.querySelector('.viewer');
-    const progressEl  = wrapper.querySelector('.progress-overlay');
-    const progressTxt = progressEl.querySelector('span');
-    const fileInput   = wrapper.querySelector('.file3d-upload');
-    const qtyInput    = wrapper.querySelector('.quantity');
-    const unitPrice   = wrapper.querySelector('.unit-price');
-    const totalPrice  = wrapper.querySelector('.total-price');
-    const slider      = wrapper.querySelector('.inserts-range');
-    const sliderCount = wrapper.querySelector('.inserts-count');
-    const opts        = wrapper.querySelectorAll('.opt');
-    const fileImport  = wrapper.querySelector('.file-import');
-    const importInput = fileImport.nextElementSibling;
+  // init 3D
+  initViewer(viewerEl);
 
-    // Initialiser le viewer
-    initViewer(viewerEl);
+  // chargement 3D
+  fileInput.addEventListener('change', function () {
+    const f = this.files[0];
+    if (!f) return;
+    overlay.classList.remove('hidden');
+    overlayTxt.textContent = '0%';
+    const reader = new FileReader();
+    reader.onprogress = ev => {
+      if (ev.lengthComputable) {
+        overlayTxt.textContent = Math.floor((ev.loaded / ev.total) * 100) + '%';
+      }
+    };
+    reader.onload = ev => {
+      const geom = new STLLoader().parse(ev.target.result);
+      if (mesh) scene.remove(mesh);
+      mesh = new THREE.Mesh(geom, new THREE.MeshPhongMaterial({ color: 0x606060 }));
+      mesh.scale.set(0.5, 0.5, 0.5);
+      scene.add(mesh);
+      const center = new THREE.Box3().setFromObject(mesh).getCenter(new THREE.Vector3());
+      mesh.position.sub(center);
+      camera.position.set(0, 0, 100);
+      camera.lookAt(scene.position);
+      overlay.classList.add('hidden');
+    };
+    reader.readAsArrayBuffer(f);
+  });
 
-    // Écouteur upload 3D
-    fileInput.addEventListener('change', function() {
-      const f = this.files[0];
-      if (!f) return;
-      progressEl.classList.remove('hidden');
-      progressTxt.textContent = '0%';
-      const reader = new FileReader();
-      reader.onprogress = e => {
-        if (e.lengthComputable) {
-          progressTxt.textContent = Math.floor((e.loaded/e.total)*100)+'%';
-        }
-      };
-      reader.onload = ev => {
-        const geom = new THREE.STLLoader().parse(ev.target.result);
-        if (mesh) scene.remove(mesh);
-        mesh = new THREE.Mesh(geom, new THREE.MeshPhongMaterial({ color:0x606060 }));
-        mesh.scale.set(0.5,0.5,0.5);
-        scene.add(mesh);
-        // recentre
-        const cen = new THREE.Box3().setFromObject(mesh).getCenter(new THREE.Vector3());
-        mesh.position.sub(cen);
-        camera.position.set(0,0,100);
-        camera.lookAt(scene.position);
+  // slider inserts
+  slider.addEventListener('input', e => (sliderCnt.textContent = e.target.value));
 
-        progressEl.classList.add('hidden');
-      };
-      reader.readAsArrayBuffer(f);
-    });
-
-    // Slider inserts
-    slider.addEventListener('input', e => {
-      sliderCount.textContent = e.target.value;
-    });
-
-    // Délai
-    opts.forEach(opt => opt.addEventListener('click', () => {
+  // délai
+  opts.forEach(opt =>
+    opt.addEventListener('click', () => {
       opts.forEach(o => o.classList.remove('active'));
       opt.classList.add('active');
-    }));
+    })
+  );
 
-    // Quantité / prix
-    qtyInput.addEventListener('change', () => {
-      const q = parseInt(qtyInput.value)||1;
-      qtyInput.value = q;
-      totalPrice.textContent = (q * parseFloat(unitPrice.textContent)).toFixed(2);
-    });
+  // quantité / prix
+  qtyInput.addEventListener('change', () => {
+    const q = parseInt(qtyInput.value) || 1;
+    qtyInput.value = q;
+    totalPrice.textContent = (q * parseFloat(unitPrice.textContent)).toFixed(2);
+  });
 
-    // Import PDF
-    importInput.addEventListener('change', () => {
-      const status = wrapper.querySelector('#file-status');
-      status.textContent = importInput.files.length ? `${importInput.files[0].name} chargé` : '';
-    });
-  }
+  // import 2D/IMG
+  import2D.addEventListener('change', e => {
+    // le navigateur affiche déjà le nom du fichier choisi
+  });
+}
 
-  // Setup dropzone
-  function setupDropzone(dropzone, input) {
-    dropzone.addEventListener('click', () => input.click());
-    ['dragover','drop'].forEach(evt => dropzone.addEventListener(evt, e=>{
+document.addEventListener('DOMContentLoaded', () => {
+  const initDrop = document.getElementById('initial-dropzone');
+  const initIn   = document.getElementById('file3d-upload-init');
+  const secDrop  = document.querySelector('.secondary-dropzone');
+  const secIn    = document.getElementById('file3d-upload2');
+
+  function setupDrop(drop, input) {
+    drop.addEventListener('click', () => input.click());
+    drop.addEventListener('dragover', e => (e.preventDefault(), drop.classList.add('dragover')));
+    drop.addEventListener('dragleave', () => drop.classList.remove('dragover'));
+    drop.addEventListener('drop', e => {
       e.preventDefault();
-      if(evt==='dragover') dropzone.classList.add('dragover');
-      else dropzone.classList.remove('dragover');
-    }));
-    dropzone.addEventListener('drop', e => {
-      if(!e.dataTransfer.files.length) return;
+      drop.classList.remove('dragover');
+      if (!e.dataTransfer.files.length) return;
       input.files = e.dataTransfer.files;
       input.dispatchEvent(new Event('change'));
     });
   }
 
-  setupDropzone(initDrop, initInput);
-
-  initInput.addEventListener('change', () => {
-    // Premier fichier → crée la première config
-    setupConfig(initInput.files[0]);
-    initDrop.style.display = 'none';
-    // Afficher la dropzone secondaire pour la suite
-    document.querySelector('.secondary-dropzone').classList.remove('hidden');
+  setupDrop(initDrop, initIn);
+  initIn.addEventListener('change', () => {
+    createConfig(initIn.files[0]);
+    initDrop.style.display   = 'none';
+    secDrop.classList.remove('hidden');
   });
 
-  // Seconde dropzone (hors cadre)
-  const secDrop = document.querySelector('.secondary-dropzone');
-  const secInp  = document.getElementById('file3d-upload2');
-  setupDropzone(secDrop, secInp);
-
-  secInp.addEventListener('change', () => {
-    // Chaque nouveau fichier crée une nouvelle config
-    setupConfig(secInp.files[0]);
-    // clean the input for next
-    secInp.value = '';
+  setupDrop(secDrop, secIn);
+  secIn.addEventListener('change', () => {
+    createConfig(secIn.files[0]);
+    secIn.value = '';
   });
-
 });
