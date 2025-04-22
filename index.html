@@ -2,108 +2,151 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Configurateur APC3D</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Configuration 3D</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Barre de progression -->
-  <div class="progress-bar">
-    <div class="step active">Configuration</div>
-    <div class="step">Validation</div>
-    <div class="step">Paiement</div>
-    <div class="step">Commande terminée</div>
-  </div>
+  <!-- 1. Barre de progression -->
+  <ul class="tabs">
+    <li class="tab active">Configuration</li>
+    <li class="tab">Validation</li>
+    <li class="tab">Paiement</li>
+    <li class="tab">Commande terminée</li>
+  </ul>
 
-  <!-- Zone d'ajout fichier -->
-  <div class="upload-section">
-    <label for="file-upload" class="upload-label">Déposez votre fichier 3D ici</label>
-    <input type="file" id="file-upload" style="display:none;">
-  </div>
+  <!-- 2. Contenu principal -->
+  <div class="panel">
 
-  <!-- Bloc de configuration -->
-  <div class="config-container">
+    <!-- 2.1 Aperçu 3D -->
+    <div class="col preview">
+      <div class="box">
+        <!-- Remplacez par votre image 3D réelle -->
+        <img src="placeholder-3d.svg" alt="Aperçu 3D">
+      </div>
+      <p class="dims">
+        Dimensions :<br>
+        120.00 × 65.00 × 10.00 mm<br>
+        Volume : 45.22 cm³
+      </p>
+    </div>
 
-    <!-- Colonne 1 : Aperçu 3D -->
-    <div class="column column-1">
-      <div class="preview-3d">
-        Aperçu 3D ici
+    <!-- 2.2 Sélections -->
+    <div class="col settings">
+      <div class="field">
+        <label for="techno">Technologie</label>
+        <select id="techno">
+          <option>FDM</option>
+          <option>SLA</option>
+          <option>SLS</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="material">Matériaux</label>
+        <select id="material">
+          <option>PLA</option>
+          <option>ABS</option>
+          <option>PETG</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="finish">Finition</label>
+        <select id="finish">
+          <option disabled selected>Sélectionnez</option>
+          <option>Brut</option>
+          <option>Poli</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="color">Couleur</label>
+        <select id="color">
+          <option disabled selected>Sélectionnez</option>
+          <option>Blanc</option>
+          <option>Noir</option>
+        </select>
       </div>
     </div>
 
-    <!-- Colonne 2 : Configuration -->
-    <div class="column column-2">
-      <h3>Technologie</h3>
-      <select><option>SLS</option><option>MSLA</option></select>
-      <h3>Matériau</h3>
-      <select><option>PA12</option><option>ABS Résine</option></select>
-      <h3>Finition</h3>
-      <select><option>Brut</option><option>Teinture</option></select>
-      <h3>Couleur</h3>
-      <select><option>Noir</option><option>Gris</option></select>
+    <!-- 2.3 Options & Livraison -->
+    <div class="col extras">
+      <div class="field qty">
+        <label>Inserts / taraudages</label>
+        <div class="stepper">
+          <button id="dec">–</button>
+          <input type="number" id="quantity" value="1" min="1">
+          <button id="inc">+</button>
+        </div>
+      </div>
+
+      <div class="field delivery">
+        <label>Délai de livraison</label>
+        <div class="opts">
+          <div class="opt" data-type="fast">
+            Fast<br><span>Mardi 29 Avril</span>
+          </div>
+          <div class="opt active" data-type="standard">
+            Standard<br><span>Mardi 29 Avril</span>
+          </div>
+          <div class="opt" data-type="eco">
+            Eco<br><span>Mardi 29 Avril</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field checks">
+        <label><input type="checkbox"> Contrôle du fichier par un expert</label>
+        <label><input type="checkbox"> Conserver l'orientation originale</label>
+      </div>
     </div>
 
-    <!-- Colonne 3 : Options -->
-    <div class="column column-3">
-      <h3>Inserts / Taraudages</h3>
-      <input type="number" value="0">
-      
-      <h3>Délai de livraison</h3>
-      <div class="delivery-buttons">
-        <button class="delivery-btn">Express 48h</button>
-        <button class="delivery-btn">Standard 5-7j</button>
-        <button class="delivery-btn">Économique 10j+</button>
+    <!-- 2.4 Récapitulatif tarifs -->
+    <div class="col summary">
+      <div class="current">
+        <div>Quantité</div><div id="sum-qty">1</div>
+        <div>Unité, EUR</div><div id="unit-price">198.41</div>
+        <div>Total, EUR</div><div id="total-price">198.41</div>
       </div>
-      
-      <div class="checkbox-group">
-        <input type="checkbox" id="controle-expert"><label for="controle-expert">Contrôle par un expert</label><br>
-        <input type="checkbox" id="conserver-orientation"><label for="conserver-orientation">Conserver orientation</label>
-      </div>
-    </div>
-
-    <!-- Colonne 4 : Tarifs -->
-    <div class="column column-4">
-      <h3>Quantité</h3>
-      <input type="number" value="1">
-      <h3>Prix unitaire</h3>
-      <p>xx€</p>
-      <h3>Total</h3>
-      <p>xx€</p>
-
-      <table class="pricing-table">
+      <table>
         <thead>
-          <tr><th>Quantité</th><th>Prix unitaire</th><th>Total</th></tr>
+          <tr><th>Quantité</th><th>Unité (€)</th><th>Total (€)</th></tr>
         </thead>
         <tbody>
-          <tr><td>1</td><td>xx€</td><td>xx€</td></tr>
-          <tr><td>5</td><td>xx€</td><td>xx€</td></tr>
-          <tr><td>10</td><td>xx€</td><td>xx€</td></tr>
+          <tr><td>1</td><td>198.41</td><td>198.41</td></tr>
+          <tr><td>2</td><td>196.80</td><td>393.60</td></tr>
+          <tr><td>3</td><td>195.98</td><td>587.94</td></tr>
+          <tr><td>4</td><td>195.46</td><td>781.84</td></tr>
+          <tr><td>5</td><td>195.07</td><td>975.35</td></tr>
         </tbody>
       </table>
     </div>
 
-  </div>
-
-  <!-- Bandeau du bas -->
-  <div class="bottom-bar">
-    <div class="left-buttons">
-      <button class="icon-btn">🗑️</button>
-      <button class="icon-btn">➕</button>
+    <!-- 2.5 Actions fichier & commentaire -->
+    <div class="col file-actions">
+      <button class="icon-btn" title="Supprimer">🗑️</button>
+      <button class="icon-btn" title="Copier">📋</button>
+      <input type="text" placeholder="Commentaire…">
+      <input type="file" accept=".pdf,.txt,.doc,.docx,.xlsx,.pptx,.jpg,.jpeg,.png">
     </div>
-    <div class="right-upload">
-      <input type="file" id="file-annexe" style="display:none;">
-      <label for="file-annexe" class="upload-label">Ajouter un fichier annexe (PDF, etc.)</label>
+
+  </div>
+
+  <!-- 3. Dropzone -->
+  <div class="dropzone">
+    <div class="dz-content">
+      <div class="plus">+</div>
+      <p>Déposez vos fichiers 3D ici<br>ou Sélectionnez des fichiers STL ou STEP</p>
     </div>
   </div>
 
-  <!-- Boutons d'action -->
-  <div class="action-buttons">
-    <button class="btn-outline-blue">Négocier les tarifs</button>
-    <button class="btn-outline-grey">Créer un devis</button>
-    <button class="btn-filled-orange">Commander maintenant</button>
+  <!-- 4. Boutons bas -->
+  <div class="actions">
+    <button class="btn negotiate">Négocier vos tarifs</button>
+    <button class="btn quote">Générer un devis</button>
+    <button class="btn order">Commander maintenant</button>
   </div>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
 
