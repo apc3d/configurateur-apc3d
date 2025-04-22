@@ -19,10 +19,10 @@
   <!-- 2. Panel principal 4 colonnes -->
   <div class="panel">
 
-    <!-- Colonne 1 : Aperçu 3D -->
+    <!-- Colonne 1 : Aperçu 3D -->
     <div class="col preview">
       <div class="box">
-        <img src="placeholder-3d.svg" alt="Aperçu 3D">
+        <img src="placeholder-3d.svg" alt="Aperçu 3D">
       </div>
       <p class="dims">
         Dimensions :<br>
@@ -31,41 +31,63 @@
       </p>
     </div>
 
-    <!-- Colonne 2 : Sélections -->
+    <!-- Colonne 2 : Sélections -->
     <div class="col settings">
       <div class="field">
         <label for="techno">Technologie</label>
-        <select id="techno">…</select>
+        <select id="techno">
+          <option>FDM</option>
+          <option>SLA</option>
+          <option>SLS</option>
+        </select>
       </div>
       <div class="field">
         <label for="material">Matériaux</label>
-        <select id="material">…</select>
+        <select id="material">
+          <option>PLA</option>
+          <option>ABS</option>
+          <option>PETG</option>
+        </select>
       </div>
       <div class="field">
         <label for="finish">Finition</label>
-        <select id="finish">…</select>
+        <select id="finish">
+          <option disabled selected>Sélectionnez</option>
+          <option>Brut</option>
+          <option>Poli</option>
+        </select>
       </div>
       <div class="field">
         <label for="color">Couleur</label>
-        <select id="color">…</select>
+        <select id="color">
+          <option disabled selected>Sélectionnez</option>
+          <option>Blanc</option>
+          <option>Noir</option>
+        </select>
       </div>
     </div>
 
-    <!-- Colonne 3 : Inserts / délais / cases à cocher -->
+    <!-- Colonne 3 : Inserts / délais / cases à cocher -->
     <div class="col extras">
       <div class="field">
-        <label for="insertsRange">Inserts / taraudages</label>
+        <label for="insertsRange">Inserts / taraudages</label>
         <div class="slider-container">
           <input type="range" id="insertsRange" min="0" max="10" value="1">
           <span id="insertsCount">1</span>
         </div>
       </div>
       <div class="field delivery">
-        <label>Délai de livraison</label>
+        <label>Délai de livraison</label>
         <div class="opts">
-          <div class="opt" data-type="fast">Fast<br><span>Mardi 29 Avril</span></div>
-          <div class="opt active" data-type="standard">Standard<br><span>Mardi 29 Avril</span></div>
-          <div class="opt" data-type="eco">Eco<br><span>Mardi 29 Avril</span></div>
+          <div class="opt" data-type="fast">
+            Fast<br><span>Mardi 29 Avril</span>
+          </div>
+          <div class="opt active" data-type="standard">
+            Standard<br><span>Mardi 29 Avril</span>
+          </div>
+          <div class="opt" data-type="eco">
+            Eco<br><span>Mardi 29 Avril</span>
+          </div>
         </div>
       </div>
       <div class="field checks">
@@ -74,16 +96,31 @@
       </div>
     </div>
 
-    <!-- Colonne 4 : Récapitulatif tarifs -->
+    <!-- Colonne 4 : Récapitulatif tarifs -->
     <div class="col summary">
-      <div class="current">
-        <div>Quantité</div><div id="sum-qty">1</div>
-        <div>Unité, EUR</div><div id="unit-price">198.41</div>
-        <div>Total, EUR</div><div id="total-price">198.41</div>
+      <!-- Summary header -->
+      <div class="summary-header">
+        <div class="field qty-order">
+          <label for="quantity">Quantité</label>
+          <div class="stepper">
+            <button id="dec">–</button>
+            <input type="number" id="quantity" value="1" min="1">
+            <button id="inc">+</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Unité, EUR</label>
+          <div id="unit-price">198.41</div>
+        </div>
+        <div class="field">
+          <label>Total, EUR</label>
+          <div id="total-price">198.41</div>
+        </div>
       </div>
+      <!-- Tableau -->
       <table>
         <thead>
-          <tr><th>Quantité</th><th>Unité (€)</th><th>Total (€)</th></tr>
+          <tr><th>Quantité</th><th>Unité (€)</th><th>Total (€)</th></tr>
         </thead>
         <tbody>
           <tr><td>1</td><td>198.41</td><td>198.41</td></tr>
@@ -95,7 +132,7 @@
       </table>
     </div>
 
-  </div>
+  </div><!-- fin panel -->
 
   <!-- 3. Bandeau gris sous le panel -->
   <div class="toolbar">
