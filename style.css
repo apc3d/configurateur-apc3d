@@ -5,23 +5,32 @@ body {
   background: #f5f5f5;
 }
 
+/* Bandeau haut progression */
 .progress-bar {
   display: flex;
-  justify-content: space-around;
-  background: white;
-  padding: 10px;
-  border-bottom: 1px solid lightgray;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  gap: 10px;
 }
 
-.progress-bar .step {
-  color: grey;
-}
-
-.progress-bar .step.active {
-  color: orange;
+.progress-step {
+  flex: 1;
+  padding: 10px 20px;
+  background-color: lightgray;
+  color: black;
+  text-align: center;
+  border-radius: 5px;
   font-weight: bold;
+  cursor: default;
 }
 
+.progress-step.active {
+  background-color: orange;
+  color: white;
+}
+
+/* Upload section */
 .upload-section {
   text-align: center;
   margin: 20px;
@@ -35,6 +44,7 @@ body {
   display: inline-block;
 }
 
+/* Configuration générale */
 .config-container {
   display: flex;
   margin: 20px;
@@ -49,8 +59,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height: 450px; /* HAUTEUR FIXE DEMANDÉE */
-  overflow-y: auto;
 }
 
 /* Traits de séparation entre colonnes */
@@ -71,7 +79,9 @@ body {
 }
 
 /* Styles spécifiques colonnes */
-.column-2 select, .column-3 input, .column-4 input {
+.column-2 select, 
+.column-3 input, 
+.column-4 input {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -84,7 +94,7 @@ h3 {
   color: #333;
 }
 
-/* Délai boutons */
+/* Délai de livraison boutons */
 .delivery-buttons {
   display: flex;
   gap: 5px;
@@ -100,6 +110,7 @@ h3 {
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 14px;
+  text-align: center;
   border-radius: 5px;
 }
 
@@ -125,7 +136,8 @@ h3 {
   border-collapse: collapse;
 }
 
-.pricing-table th, .pricing-table td {
+.pricing-table th, 
+.pricing-table td {
   border: 1px solid #ddd;
   padding: 8px;
   font-size: 14px;
@@ -135,7 +147,7 @@ h3 {
   background: #f0f0f0;
 }
 
-/* Bandeau du bas */
+/* Bandeau du bas (icônes + champ commentaire + fichier) */
 .bottom-bar {
   display: flex;
   justify-content: space-between;
@@ -158,30 +170,32 @@ h3 {
   padding: 10px 20px;
 }
 
-/* Boutons d'action */
+/* Boutons d'action bas */
 .action-buttons {
-  text-align: center;
-  margin: 30px;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 15px;
 }
 
 .btn-outline-blue {
   border: 2px solid blue;
   color: blue;
-  padding: 10px 20px;
   background: none;
-  margin: 5px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 .btn-outline-grey {
   border: 2px solid grey;
   color: grey;
-  padding: 10px 20px;
   background: none;
-  margin: 5px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 .btn-filled-orange {
@@ -189,12 +203,12 @@ h3 {
   background: orange;
   color: white;
   padding: 10px 20px;
-  margin: 5px;
+  border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-/* Hover effets */
+/* Hover effets pour les boutons */
 .btn-outline-blue:hover,
 .btn-outline-grey:hover,
 .btn-filled-orange:hover {
