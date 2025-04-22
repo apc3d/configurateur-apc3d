@@ -1,40 +1,110 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configurateur 3D</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Configurateur APC3D</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Bandeau de progression -->
-<div class="progress-bar">
+  <!-- Barre de progression -->
+  <div class="progress-bar">
     <div class="step active">Configuration</div>
     <div class="step">Validation</div>
     <div class="step">Paiement</div>
     <div class="step">Commande terminée</div>
-</div>
+  </div>
 
-<!-- Zone Upload -->
-<div class="upload-section">
-    <label class="upload-label" for="file-upload">Déposez vos fichiers 3D ici</label>
-    <input id="file-upload" type="file" accept=".stl" hidden multiple>
-</div>
+  <!-- Zone d'ajout fichier -->
+  <div class="upload-section">
+    <label for="file-upload" class="upload-label">Déposez votre fichier 3D ici</label>
+    <input type="file" id="file-upload" style="display:none;">
+  </div>
 
-<!-- Zone Configuration -->
-<div class="config-container" id="config-container">
-    <!-- Configurations générées ici par JS -->
-</div>
+  <!-- Bloc de configuration -->
+  <div class="config-container">
 
-<!-- Boutons d'action -->
-<div class="action-buttons">
+    <!-- Colonne 1 : Aperçu 3D -->
+    <div class="column column-1">
+      <div class="preview-3d">
+        Aperçu 3D ici
+      </div>
+    </div>
+
+    <!-- Colonne 2 : Configuration -->
+    <div class="column column-2">
+      <h3>Technologie</h3>
+      <select><option>SLS</option><option>MSLA</option></select>
+      <h3>Matériau</h3>
+      <select><option>PA12</option><option>ABS Résine</option></select>
+      <h3>Finition</h3>
+      <select><option>Brut</option><option>Teinture</option></select>
+      <h3>Couleur</h3>
+      <select><option>Noir</option><option>Gris</option></select>
+    </div>
+
+    <!-- Colonne 3 : Options -->
+    <div class="column column-3">
+      <h3>Inserts / Taraudages</h3>
+      <input type="number" value="0">
+      
+      <h3>Délai de livraison</h3>
+      <div class="delivery-buttons">
+        <button class="delivery-btn">Express 48h</button>
+        <button class="delivery-btn">Standard 5-7j</button>
+        <button class="delivery-btn">Économique 10j+</button>
+      </div>
+      
+      <div class="checkbox-group">
+        <input type="checkbox" id="controle-expert"><label for="controle-expert">Contrôle par un expert</label><br>
+        <input type="checkbox" id="conserver-orientation"><label for="conserver-orientation">Conserver orientation</label>
+      </div>
+    </div>
+
+    <!-- Colonne 4 : Tarifs -->
+    <div class="column column-4">
+      <h3>Quantité</h3>
+      <input type="number" value="1">
+      <h3>Prix unitaire</h3>
+      <p>xx€</p>
+      <h3>Total</h3>
+      <p>xx€</p>
+
+      <table class="pricing-table">
+        <thead>
+          <tr><th>Quantité</th><th>Prix unitaire</th><th>Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>xx€</td><td>xx€</td></tr>
+          <tr><td>5</td><td>xx€</td><td>xx€</td></tr>
+          <tr><td>10</td><td>xx€</td><td>xx€</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- Bandeau du bas -->
+  <div class="bottom-bar">
+    <div class="left-buttons">
+      <button class="icon-btn">🗑️</button>
+      <button class="icon-btn">➕</button>
+    </div>
+    <div class="right-upload">
+      <input type="file" id="file-annexe" style="display:none;">
+      <label for="file-annexe" class="upload-label">Ajouter un fichier annexe (PDF, etc.)</label>
+    </div>
+  </div>
+
+  <!-- Boutons d'action -->
+  <div class="action-buttons">
     <button class="btn-outline-blue">Négocier les tarifs</button>
     <button class="btn-outline-grey">Créer un devis</button>
     <button class="btn-filled-orange">Commander maintenant</button>
-</div>
+  </div>
 
 <script src="script.js"></script>
 </body>
 </html>
+
 
