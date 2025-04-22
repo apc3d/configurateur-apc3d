@@ -1,8 +1,7 @@
-// Pour changer de couleur sur sélection délai
-const deliveryButtons = document.querySelectorAll('.delivery-btn');
-deliveryButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    deliveryButtons.forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-  });
+// Simple gestion de sélection de délai
+document.querySelectorAll('.delivery-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.delivery-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+    });
 });
