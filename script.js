@@ -1,13 +1,9 @@
-// Onglets (affichage uniquement)
-document.querySelectorAll('.tab').forEach(tab => {
-  // on ne modifie plus la classe active par clic
-  // pointer-events:none en CSS suffit
-});
+// (Les onglets sont purement indicatifs, pas de clic)
 
-// Gestion du stepper Quantité
-const dec = document.getElementById('dec'),
-      inc = document.getElementById('inc'),
-      qty = document.getElementById('quantity'),
+// Quantité / prix
+const dec        = document.getElementById('dec'),
+      inc        = document.getElementById('inc'),
+      qty        = document.getElementById('quantity'),
       unitPrice  = document.getElementById('unit-price'),
       totalPrice = document.getElementById('total-price');
 
@@ -23,8 +19,9 @@ inc.addEventListener('click', () => { qty.value = +qty.value + 1; updatePrices()
 qty.addEventListener('change', updatePrices);
 
 // Slider Inserts
-const insertsRange = document.getElementById('insertsRange'),
-      insertsCount = document.getElementById('insertsCount');
+const insertsRange  = document.getElementById('insertsRange'),
+      insertsCount  = document.getElementById('insertsCount');
+
 insertsRange.addEventListener('input', () => {
   insertsCount.textContent = insertsRange.value;
 });
@@ -37,9 +34,10 @@ document.querySelectorAll('.opt').forEach(opt => {
   });
 });
 
-// Import de fichier : affichage de l'état
+// Import fichier → afficher nom chargé
 const fileUpload = document.getElementById('file-upload'),
       fileStatus = document.getElementById('file-status');
+
 fileUpload.addEventListener('change', () => {
   if (fileUpload.files.length) {
     fileStatus.textContent = `${fileUpload.files[0].name} chargé`;
@@ -48,7 +46,10 @@ fileUpload.addEventListener('change', () => {
   }
 });
 
-// Dropzone – empêcher l’ouverture de fichier
+// Dropzone : éviter l'ouverture de fichier sur drag/drop
 const dz = document.querySelector('.dropzone');
-['dragover','drop'].forEach(e => dz.addEventListener(e, ev => ev.preventDefault()));
+['dragover','drop'].forEach(evt =>
+  dz.addEventListener(evt, e => e.preventDefault())
+);
+
 
