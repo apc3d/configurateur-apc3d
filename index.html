@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <!-- 1. Bandeau de progression -->
+  <!-- 1. Onglets -->
   <ul class="tabs">
     <li class="tab active">Configuration</li>
     <li class="tab">Validation</li>
@@ -17,15 +17,18 @@
     <li class="tab">Commande terminée</li>
   </ul>
 
-  <!-- Wrapper (panel + toolbar) -->
+  <!-- Wrapper (panel + toolbar + actions) -->
   <div class="panel-wrapper">
 
-    <!-- 2. Panel principal 4 colonnes -->
+    <!-- 2. Panel 4 colonnes -->
     <div class="panel">
 
-      <!-- Colonne 1 : viewer 3D + upload STL/STEP -->
+      <!-- Colonne 1 : viewer 3D + upload STL/STEP -->
       <div class="col preview">
-        <div id="viewer" class="viewer"></div>
+        <div id="viewer" class="viewer">
+          <!-- spinner -->
+          <div id="spinner" class="spinner hidden"></div>
+        </div>
         <input type="file" id="file3d-upload" accept=".stl,.step,.stp">
         <p class="dims">
           Dimensions :<br>
@@ -38,39 +41,23 @@
       <div class="col settings">
         <div class="field">
           <label for="techno">Technologie</label>
-          <select id="techno">
-            <option>FDM</option>
-            <option>SLA</option>
-            <option>SLS</option>
-          </select>
+          <select id="techno">…</select>
         </div>
         <div class="field">
           <label for="material">Matériaux</label>
-          <select id="material">
-            <option>PLA</option>
-            <option>ABS</option>
-            <option>PETG</option>
-          </select>
+          <select id="material">…</select>
         </div>
         <div class="field">
           <label for="finish">Finition</label>
-          <select id="finish">
-            <option disabled selected>Sélectionnez</option>
-            <option>Brut</option>
-            <option>Poli</option>
-          </select>
+          <select id="finish">…</select>
         </div>
         <div class="field">
           <label for="color">Couleur</label>
-          <select id="color">
-            <option disabled selected>Sélectionnez</option>
-            <option>Blanc</option>
-            <option>Noir</option>
-          </select>
+          <select id="color">…</select>
         </div>
       </div>
 
-      <!-- Colonne 3 : Inserts / délais / cases à cocher -->
+      <!-- Colonne 3 : Inserts / délai (centré) / checks -->
       <div class="col extras">
         <div class="field">
           <label for="insertsRange">Inserts / taraudages</label>
@@ -82,15 +69,9 @@
         <div class="field delivery">
           <label>Délai de livraison</label>
           <div class="opts">
-            <div class="opt" data-type="fast">
-              Fast<br><span>Mardi 29 Avril</span>
-            </div>
-            <div class="opt active" data-type="standard">
-              Standard<br><span>Mardi 29 Avril</span>
-            </div>
-            <div class="opt" data-type="eco">
-              Eco<br><span>Mardi 29 Avril</span>
-            </div>
+            <div class="opt" data-type="fast">Fast<br><span>Mardi 29 Avril</span></div>
+            <div class="opt active" data-type="standard">Standard<br><span>Mardi 29 Avril</span></div>
+            <div class="opt" data-type="eco">Eco<br><span>Mardi 29 Avril</span></div>
           </div>
         </div>
         <div class="field checks">
@@ -131,7 +112,7 @@
 
     </div><!-- fin panel -->
 
-    <!-- 8. Bandeau gris intégré sous le panel -->
+    <!-- Bandeau gris intégré -->
     <div class="toolbar">
       <div class="toolbar-left">
         <button class="icon-btn" title="Supprimer">
@@ -154,9 +135,16 @@
       </div>
     </div>
 
+    <!-- Boutons d’action -->
+    <div class="actions">
+      <button class="btn negotiate">Négocier vos tarifs</button>
+      <button class="btn quote">Générer un devis</button>
+      <button class="btn order">Commander maintenant</button>
+    </div>
+
   </div><!-- fin panel-wrapper -->
 
-  <!-- 4. Dropzone -->
+  <!-- 1. Dropzone initiale -->
   <div class="dropzone">
     <div class="dz-content">
       <div class="plus">+</div>
@@ -167,14 +155,7 @@
     </div>
   </div>
 
-  <!-- 5. Boutons bas -->
-  <div class="actions">
-    <button class="btn negotiate">Négocier vos tarifs</button>
-    <button class="btn quote">Générer un devis</button>
-    <button class="btn order">Commander maintenant</button>
-  </div>
-
-  <!-- Three.js + STLLoader pour le viewer 3D -->
+  <!-- Three.js + STLLoader -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
   <script src="script.js"></script>
