@@ -21,78 +21,77 @@ function animate() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const panelWrapper       = document.querySelector('.panel-wrapper');
-  const initialDropzone    = document.getElementById('initial-dropzone');
-  const secondaryDropzone  = document.querySelector('.secondary-dropzone');
-  const file3dUpload       = document.getElementById('file3d-upload');
-  const file3dUpload2      = document.getElementById('file3d-upload2') || (() => {
-    // création lazy de l'input pour second upload
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.stl,.step,.stp';
-    input.id = 'file3d-upload2';
-    secondaryDropzone.appendChild(input);
-    return input;
-  })();
-  const loadProgress       = document.getElementById('load-progress');
+  const panelWrapper      = document.querySelector('.panel-wrapper');
+  const initialDropzone   = document.getElementById('initial-dropzone');
+  const secondaryDropzone = document.getElementById('secondary-dropzone');
+  const file3dUpload      = document.getElementById('file3d-upload');
+  const file3dUpload2     = document.getElementById('file3d-upload2');
+  const overlay           = document.getElementById('progress-overlay');
+  const overlayText       = document.getElementById('progress-text');
 
-  // 1️⃣ initial : on cache le panel
+  // 1️⃣ initial : on cache la config
   panelWrapper.style.display = 'none';
 
   initViewer();
 
-  // utilisation identique pour initial et secondaire
-  function setupDropzone(dropzone, fileInput) {
-    dropzone.addEventListener('click', () => fileInput.click());
-    dropzone.addEventListener('dragover', e => {
-      e.preventDefault(); dropzone.classList.add('dragover');
+  // Handler dropzone (click + drag&drop)
+  function setupDropzone(zone, input) {
+    zone.addEventListener('click', () => input.click());
+    zone.addEventListener('dragover', e => {
+      e.preventDefault(); zone.classList.add('dragover');
     });
-    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
-    dropzone.addEventListener('drop', e => {
-      e.preventDefault(); dropzone.classList.remove('dragover');
+    zone.addEventListener('dragleave', () => {
+      zone.classList.remove('dragover');
+    });
+    zone.addEventListener('drop', e => {
+      e.preventDefault(); zone.classList.remove('dragover');
       if (!e.dataTransfer.files.length) return;
-      fileInput.files = e.dataTransfer.files;
-      fileInput.dispatchEvent(new Event('change'));
+      input.files = e.dataTransfer.files;
+      input.dispatchEvent(new Event('change'));
     });
   }
   setupDropzone(initialDropzone, file3dUpload);
   setupDropzone(secondaryDropzone, file3dUpload2);
 
-  // 2️⃣ Premier upload 3D
+  // 2️⃣ Premier fichier 3D
   file3dUpload.addEventListener('change', function () {
     const file = this.files[0];
     if (!file) return;
 
-    // barre indéterminée
-    loadProgress.classList.remove('hidden');
+    overlay.classList.remove('hidden');
+    overlayText.textContent = '0%';
 
     const reader = new FileReader();
+    reader.onprogress = ev => {
+      if (ev.lengthComputable) {
+        const pct = Math.floor((ev.loaded / ev.total) * 100);
+        overlayText.textContent = pct + '%';
+      }
+    };
     reader.onload = ev => {
-      // parse STL
-      const geometry = new THREE.STLLoader().parse(ev.target.result);
+      // Parse et afficher le STL
+      const geom = new THREE.STLLoader().parse(ev.target.result);
       if (mesh) scene.remove(mesh);
-      mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ color: 0x606060 }));
+      mesh = new THREE.Mesh(geom, new THREE.MeshPhongMaterial({ color: 0x606060 }));
       mesh.scale.set(0.5, 0.5, 0.5);
       scene.add(mesh);
-      // recentre
       const center = new THREE.Box3().setFromObject(mesh).getCenter(new THREE.Vector3());
       mesh.position.sub(center);
       camera.position.set(0,0,100);
       camera.lookAt(scene.position);
 
-      // affiche panel + toolbar + secondary dropzone
-      panelWrapper.style.display      = 'block';
-      initialDropzone.style.display  = 'none';
-      loadProgress.classList.add('hidden');
+      // Affiche la config et la seconde dropzone
+      panelWrapper.style.display        = 'block';
+      initialDropzone.style.display     = 'none';
       secondaryDropzone.classList.remove('hidden');
+      overlay.classList.add('hidden');
     };
+
     reader.readAsArrayBuffer(file);
   });
 
-  // 2ᵉ upload 3D
+  // 2ᵉ fichier 3D
   file3dUpload2.addEventListener('change', function () {
-    // ici ajout d'une nouvelle config (panier)
-    // simple alert temporaire :
     alert('Deuxième fichier chargé : ' + this.files[0].name);
   });
 
@@ -100,14 +99,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const qtyInput  = document.getElementById('quantity'),
         unitPrice = document.getElementById('unit-price'),
         totalPrice= document.getElementById('total-price');
-  function updatePrices() {
+  qtyInput.addEventListener('change', () => {
     let q = parseInt(qtyInput.value) || 1;
     qtyInput.value = q;
     totalPrice.textContent = (q * parseFloat(unitPrice.textContent)).toFixed(2);
-  }
-  qtyInput.addEventListener('change', updatePrices);
+  });
 
-  // Slider Inserts
+  // Slider inserts
   document.getElementById('insertsRange').addEventListener('input', e => {
     document.getElementById('insertsCount').textContent = e.target.value;
   });
