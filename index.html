@@ -23,7 +23,7 @@
     <!-- 2. Panel 4 colonnes -->
     <div class="panel">
 
-      <!-- Col 1: viewer + upload STL/STEP -->
+      <!-- Colonne 1 : viewer 3D + upload STL/STEP -->
       <div class="col preview">
         <div id="viewer" class="viewer">
           <div id="spinner" class="spinner hidden"></div>
@@ -36,29 +36,121 @@
         </p>
       </div>
 
-      <!-- Col 2: settings -->
+      <!-- Colonne 2 : Sélections -->
       <div class="col settings">
-        <!-- … mêmes champs que précédemment … -->
+        <div class="field">
+          <label for="techno">Technologie</label>
+          <select id="techno">
+            <option>FDM</option>
+            <option>SLA</option>
+            <option>SLS</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="material">Matériaux</label>
+          <select id="material">
+            <option>PLA</option>
+            <option>ABS</option>
+            <option>PETG</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="finish">Finition</label>
+          <select id="finish">
+            <option disabled selected>Sélectionnez</option>
+            <option>Brut</option>
+            <option>Poli</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="color">Couleur</label>
+          <select id="color">
+            <option disabled selected>Sélectionnez</option>
+            <option>Blanc</option>
+            <option>Noir</option>
+          </select>
+        </div>
       </div>
 
-      <!-- Col 3: inserts / délai centré / checks -->
+      <!-- Colonne 3 : Inserts / délai centré / checks -->
       <div class="col extras">
-        <!-- … mêmes champs que précédemment … -->
+        <div class="field">
+          <label for="insertsRange">Inserts / taraudages</label>
+          <div class="slider-container">
+            <input type="range" id="insertsRange" min="0" max="10" value="1">
+            <span id="insertsCount">1</span>
+          </div>
+        </div>
+        <div class="field delivery">
+          <label>Délai de livraison</label>
+          <div class="opts">
+            <div class="opt" data-type="fast">Fast<br><span>Mardi 29 Avril</span></div>
+            <div class="opt active" data-type="standard">Standard<br><span>Mardi 29 Avril</span></div>
+            <div class="opt" data-type="eco">Eco<br><span>Mardi 29 Avril</span></div>
+          </div>
+        </div>
+        <div class="field checks">
+          <label><input type="checkbox"> Contrôle du fichier par un expert</label>
+          <label><input type="checkbox"> Conserver l'orientation originale</label>
+        </div>
       </div>
 
-      <!-- Col 4: summary -->
+      <!-- Colonne 4 : Récapitulatif tarifs -->
       <div class="col summary">
-        <!-- … mêmes champs que précédemment … -->
+        <div class="summary-header">
+          <div class="field qty-order">
+            <label for="quantity">Quantité</label>
+            <input type="number" id="quantity" value="1" min="1">
+          </div>
+          <div class="field">
+            <label>Unité, EUR</label>
+            <div id="unit-price">198.41</div>
+          </div>
+          <div class="field">
+            <label>Total, EUR</label>
+            <div id="total-price">198.41</div>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Quantité</th><th>Unité (€)</th><th>Total (€)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>198.41</td><td>198.41</td></tr>
+            <tr><td>2</td><td>196.80</td><td>393.60</td></tr>
+            <tr><td>3</td><td>195.98</td><td>587.94</td></tr>
+            <tr><td>4</td><td>195.46</td><td>781.84</td></tr>
+            <tr><td>5</td><td>195.07</td><td>975.35</td></tr>
+          </tbody>
+        </table>
       </div>
 
     </div><!-- fin panel -->
 
-    <!-- Bandeau gris centralisé -->
+    <!-- Bandeau gris intégré -->
     <div class="toolbar">
-      <!-- … mêmes boutons et upload … -->
+      <div class="toolbar-left">
+        <button class="icon-btn" title="Supprimer">
+          <i class="material-icons">delete</i>
+        </button>
+        <button class="icon-btn" title="Dupliquer">
+          <i class="material-icons">content_copy</i>
+        </button>
+      </div>
+      <div class="toolbar-right">
+        <input type="text" placeholder="Commentaire…">
+        <div class="file-import">
+          <label for="file-upload" class="btn-import">
+            Joindre un fichier (pdf, txt, doc, docx, xlsx, pptx, jpg, jpeg, png)
+          </label>
+          <input type="file" id="file-upload"
+                 accept=".pdf,.txt,.doc,.docx,.xlsx,.pptx,.jpg,.jpeg,.png">
+          <span id="file-status"></span>
+        </div>
+      </div>
     </div>
 
-    <!-- Boutons bas, affichés en permanence -->
+    <!-- Boutons bas, visibles en permanence -->
     <div class="actions">
       <button class="btn negotiate">Négocier vos tarifs</button>
       <button class="btn quote">Générer un devis</button>
