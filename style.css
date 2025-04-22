@@ -1,118 +1,112 @@
 body {
-    font-family: Arial, sans-serif;
-    background: #f9f9f9;
-    margin: 0;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f5f5f5;
 }
 
 .progress-bar {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 10px;
+  border-bottom: 1px solid lightgray;
 }
 
 .progress-bar .step {
-    flex: 1;
-    text-align: center;
-    padding: 10px;
-    background: #ccc;
-    margin: 0 5px;
-    border-radius: 5px;
+  color: grey;
 }
 
 .progress-bar .step.active {
-    background: orange;
-    color: #fff;
+  color: orange;
+  font-weight: bold;
 }
 
-#configurateur {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
+.upload-section {
+  text-align: center;
+  margin: 20px;
 }
 
-.config-line {
-    display: flex;
-    margin-bottom: 20px;
+.upload-label {
+  padding: 15px 30px;
+  background: #eee;
+  border: 2px dashed #ccc;
+  cursor: pointer;
+  display: inline-block;
 }
 
-.col {
-    flex: 1;
-    padding: 10px;
+.config-container {
+  display: flex;
+  margin: 20px;
+  gap: 10px;
 }
 
-.upload-3d label {
-    display: block;
-    text-align: center;
-    padding: 10px;
-    border: 2px dashed #aaa;
-    margin-bottom: 10px;
-    cursor: pointer;
+.column {
+  background: white;
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ddd;
 }
 
-.delai-buttons button {
-    margin-right: 10px;
-    margin-top: 5px;
+.pricing-table {
+  width: 100%;
+  margin-top: 10px;
 }
 
-.options {
-    margin-top: 10px;
+.pricing-table th, .pricing-table td {
+  border: 1px solid #ddd;
+  padding: 5px;
+  text-align: center;
 }
 
-.prix {
-    margin: 10px 0;
+.bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  background: #ddd;
+  padding: 10px;
+  margin: 20px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-table th, table td {
-    border: 1px solid #ddd;
-    padding: 5px;
-    text-align: center;
+.right-upload .upload-label {
+  background: #ccc;
 }
 
-.config-actions {
-    margin-top: 20px;
-    text-align: center;
+.action-buttons {
+  text-align: center;
+  margin: 30px;
 }
 
-.config-actions textarea {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
+.btn-outline-blue {
+  border: 2px solid blue;
+  color: blue;
+  padding: 10px 20px;
+  background: none;
+  margin: 5px;
+  cursor: pointer;
 }
 
-.bottom-buttons {
-    margin-top: 30px;
-    text-align: center;
+.btn-outline-grey {
+  border: 2px solid grey;
+  color: grey;
+  padding: 10px 20px;
+  background: none;
+  margin: 5px;
+  cursor: pointer;
 }
 
-.bottom-buttons button {
-    margin: 0 10px;
-    padding: 15px 30px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    border: 2px solid;
-    background: white;
-}
-
-.bottom-buttons .negocier {
-    border-color: blue;
-    color: blue;
-}
-
-.bottom-buttons .devis {
-    border-color: gray;
-    color: gray;
-}
-
-.bottom-buttons .commander {
-    background: orange;
-    color: white;
-    border: none;
+.btn-filled-orange {
+  border: none;
+  background: orange;
+  color: white;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
 }
 
