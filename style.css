@@ -49,8 +49,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height: 70vh; /* <<< NOUVEAU : Hauteur fixe des colonnes */
-  overflow-y: auto; /* scroll auto si besoin */
+  height: 450px; /* <<< Hauteur fixe 450px comme demandé */
+  overflow-y: auto;
 }
 
 /* Traits de séparation entre les colonnes */
@@ -76,7 +76,6 @@ body {
   padding: 8px;
   border: 1px solid #ccc;
   margin-bottom: 10px;
-  border-radius: 5px; /* coins arrondis sur inputs */
 }
 
 h3 {
@@ -101,7 +100,7 @@ h3 {
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 14px;
-  border-radius: 5px;
+  border-radius: 5px; /* léger arrondi */
 }
 
 .delivery-btn.selected {
@@ -173,7 +172,6 @@ h3 {
   margin: 5px;
   cursor: pointer;
   transition: 0.3s;
-  border-radius: 5px;
 }
 
 .btn-outline-grey {
@@ -184,7 +182,6 @@ h3 {
   margin: 5px;
   cursor: pointer;
   transition: 0.3s;
-  border-radius: 5px;
 }
 
 .btn-filled-orange {
@@ -195,7 +192,6 @@ h3 {
   margin: 5px;
   cursor: pointer;
   transition: 0.3s;
-  border-radius: 5px;
 }
 
 /* Hover effets */
