@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Configurateur APC3D</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurateur 3D</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- Bandeau de progression -->
 <div class="progress-bar">
-  <div class="step active">Configuration</div>
-  <div class="step">Validation</div>
-  <div class="step">Paiement</div>
-  <div class="step">Commande terminée</div>
+    <div class="step active">Configuration</div>
+    <div class="step">Validation</div>
+    <div class="step">Paiement</div>
+    <div class="step">Commande terminée</div>
 </div>
 
+<!-- Zone Upload -->
 <div class="upload-section">
-  <label class="upload-label">
-    Déposez vos fichiers 3D ici
-    <input type="file" id="fileInput" hidden>
-  </label>
+    <label class="upload-label" for="file-upload">Déposez vos fichiers 3D ici</label>
+    <input id="file-upload" type="file" accept=".stl" hidden multiple>
 </div>
 
-<div id="configurations"></div>
+<!-- Zone Configuration -->
+<div class="config-container" id="config-container">
+    <!-- Configurations générées ici par JS -->
+</div>
 
+<!-- Boutons d'action -->
 <div class="action-buttons">
-  <button class="btn-outline-blue">Négocier les tarifs</button>
-  <button class="btn-outline-grey">Créer un devis</button>
-  <button class="btn-filled-orange">Commander maintenant</button>
+    <button class="btn-outline-blue">Négocier les tarifs</button>
+    <button class="btn-outline-grey">Créer un devis</button>
+    <button class="btn-filled-orange">Commander maintenant</button>
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
 
