@@ -23,9 +23,10 @@
     <!-- 2.1 Panel 4 colonnes -->
     <div class="panel">
 
-      <!-- Colonne 1 : viewer 3D + upload STL/STEP -->
+      <!-- Colonne 1 : viewer 3D + upload STL/STEP + barre de progression -->
       <div class="col preview">
         <div id="viewer" class="viewer"></div>
+        <progress id="load-progress" max="100" value="0" class="hidden"></progress>
         <input type="file" id="file3d-upload" accept=".stl,.step,.stp">
         <p class="dims">
           Dimensions :<br>
@@ -120,7 +121,6 @@
             <tr><td>4</td><td>195.46</td><td>781.84</td></tr>
             <tr><td>5</td><td>195.07</td><td>975.35</td></tr>
             <tr><td>6</td><td>194.00</td><td>1 164.00</td></tr>
-            <tr><td>7</td><td>193.00</td><td>1 351.00</td></tr>
           </tbody>
         </table>
       </div>
@@ -148,6 +148,12 @@
           <span id="file-status"></span>
         </div>
       </div>
+    </div>
+
+    <!-- 2ème upload 3D -->
+    <div id="secondary-upload" class="secondary-upload hidden">
+      <label for="file3d-upload2" class="btn-import">Ajouter un autre fichier 3D</label>
+      <input type="file" id="file3d-upload2" accept=".stl,.step,.stp">
     </div>
 
   </div><!-- fin panel-wrapper -->
