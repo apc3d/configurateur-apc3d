@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <!-- 1. Bandeau de progression -->
+  <!-- 1. Onglets -->
   <ul class="tabs">
     <li class="tab active">Configuration</li>
     <li class="tab">Validation</li>
@@ -17,10 +17,10 @@
     <li class="tab">Commande terminée</li>
   </ul>
 
-  <!-- Conteneur pour toutes les configs -->
+  <!-- Conteneur de configs -->
   <div id="configs-container"></div>
 
-  <!-- 2. Dropzone secondaire (hors cadre), cachée initialement -->
+  <!-- Dropzone secondaire (hors cadre), cachée initialement -->
   <div class="dropzone secondary-dropzone hidden" id="secondary-dropzone">
     <input type="file" id="file3d-upload2" accept=".stl,.step,.stp" hidden />
     <div class="dz-content">
@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <!-- 3. Dropzone initiale interactive (hors cadre) -->
+  <!-- Dropzone initiale interactive (hors cadre) -->
   <div class="dropzone" id="initial-dropzone">
     <input type="file" id="file3d-upload-init" accept=".stl,.step,.stp" hidden />
     <div class="dz-content">
@@ -38,30 +38,32 @@
     </div>
   </div>
 
-  <!-- 4. Boutons bas -->
+  <!-- Boutons bas -->
   <div class="actions">
     <button class="btn negotiate">Négocier vos tarifs</button>
     <button class="btn quote">Générer un devis</button>
     <button class="btn order">Commander maintenant</button>
   </div>
 
-  <!-- Template d’une configuration complète -->
+  <!-- Template de configuration -->
   <template id="config-template">
     <div class="panel-wrapper">
+
+      <!-- Panel 4 colonnes -->
       <div class="panel">
-        <!-- Colonne 1 : Aperçu 3D -->
+        <!-- Col 1 : Aperçu 3D -->
         <div class="col preview">
           <div class="viewer">
             <div class="progress-overlay hidden"><span>0%</span></div>
           </div>
-          <input type="file" class="file3d-upload" accept=".stl,.step,.stp" />
           <p class="dims">
             Dimensions :<br />
             120.00 × 65.00 × 10.00 mm<br />
             Volume : 45.22 cm³
           </p>
         </div>
-        <!-- Colonne 2 : Sélections -->
+
+        <!-- Col 2 : Sélections -->
         <div class="col settings">
           <div class="field">
             <label>Technologie</label>
@@ -86,7 +88,8 @@
             </select>
           </div>
         </div>
-        <!-- Colonne 3 : Extras -->
+
+        <!-- Col 3 : Extras -->
         <div class="col extras">
           <div class="field">
             <label>Inserts / taraudages</label>
@@ -108,7 +111,8 @@
             <label><input type="checkbox" /> Conserver l'orientation originale</label>
           </div>
         </div>
-        <!-- Colonne 4 : Récapitulatif -->
+
+        <!-- Col 4 : Récap tarifs -->
         <div class="col summary">
           <div class="summary-header">
             <div class="field qty-order">
@@ -138,7 +142,8 @@
           </table>
         </div>
       </div>
-      <!-- Toolbar gris INTÉGRÉ dans le cadre -->
+
+      <!-- Toolbar gris (INTÉGRÉ dans le cadre) -->
       <div class="toolbar">
         <div class="toolbar-left">
           <button class="icon-btn" title="Supprimer"><i class="material-icons">delete</i></button>
@@ -146,13 +151,20 @@
         </div>
         <div class="toolbar-right">
           <input type="text" placeholder="Commentaire…" />
-          <input
-            type="file"
-            class="file-import"
-            accept=".pdf,.txt,.doc,.docx,.xlsx,.pptx,.jpg,.jpeg,.png"
-          />
+          <div class="file-import-section">
+            <label for="file-import">
+              Joindre un fichier (pdf, txt, doc, docx, xlsx, pptx, jpg, jpeg, png)
+            </label>
+            <input
+              type="file"
+              id="file-import"
+              class="file-import"
+              accept=".pdf,.txt,.doc,.docx,.xlsx,.pptx,.jpg,.jpeg,.png"
+            />
+          </div>
         </div>
       </div>
+
     </div>
   </template>
 
