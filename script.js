@@ -1,7 +1,8 @@
-// Simple gestion de sélection de délai
-document.querySelectorAll('.delivery-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('.delivery-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
+const buttons = document.querySelectorAll('.delivery-btn');
+
+buttons.forEach(btn => {
+    btn.addEventListener('click', function() {
+        buttons.forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
     });
 });
