@@ -44,8 +44,9 @@ body {
   color: var(--white);
 }
 
-/* Wrapper (panel + toolbar) */
+/* Panel + toolbar cachés au départ */
 .panel-wrapper {
+  display: none;
   border: 1px solid var(--grey-med);
   border-radius: 4px;
   background: var(--white);
@@ -57,70 +58,75 @@ body {
 .panel {
   display: grid;
   grid-template-columns: 0.8fr 1fr 1fr 1fr;
-  gap: 24px;
-  background: transparent;
+  gap: 16px; /* un peu plus serré verticalement */
   padding: 0;
-  border: none;
 }
 
-/* Colonne 1: viewer */
+/* Colonne 1 : viewer */
 .viewer {
   width: 100%;
-  height: 200px;
+  height: 150px; /* hauteur réduite */
   background: #f0f0f0;
   border: 1px solid var(--grey-med);
   margin-bottom: 8px;
 }
 .preview input[type="file"] {
-  margin-bottom: 12px;
+  margin-bottom: 8px;
+}
+.preview .dims {
+  font-size: 12px;
+  line-height: 1.4;
 }
 
-/* Colonne 2: settings */
+/* Colonne 2 : settings */
 .settings {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px; /* espacement réduit */
 }
 .field label {
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   font-size: 13px;
 }
 .field select {
   width: 100%;
-  padding: 6px;
+  padding: 4px;
   border: 1px solid var(--grey-med);
   border-radius: 4px;
-  background: var(--white);
+  font-size: 13px;
 }
 
-/* Colonne 3: extras */
+/* Colonne 3 : extras */
 .extras {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
 }
 .slider-container {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 input[type="range"] {
   flex: 1;
 }
+.delivery {
+  margin: auto 0; /* centre exactement au milieu */
+}
 .delivery .opts {
   display: flex;
   gap: 4px;
-  margin: 12px 0;
 }
 .opt {
   flex: 1;
-  padding: 8px 4px;
+  padding: 6px 4px;
   border: 1px solid var(--grey-med);
   border-radius: 2px;
   text-align: center;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
 }
 .opt.active {
   background: var(--orange);
@@ -128,7 +134,6 @@ input[type="range"] {
   border-color: var(--orange);
 }
 .checks {
-  margin-top: auto;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -137,16 +142,18 @@ input[type="range"] {
   margin-right: 6px;
 }
 
-/* Colonne 4: summary */
+/* Colonne 4 : summary */
 .summary {
+  display: flex;
+  flex-direction: column;
   background: var(--grey-light);
   padding: 8px;
   border-radius: 4px;
 }
 .summary-header {
   display: flex;
-  gap: 16px;
-  margin-bottom: 12px;
+  gap: 12px;
+  margin-bottom: 8px;
   align-items: flex-end;
 }
 .summary-header .field {
@@ -155,39 +162,37 @@ input[type="range"] {
 }
 .summary-header .field label {
   font-size: 13px;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 .summary-header #unit-price,
 .summary-header #total-price {
   background: var(--orange);
   color: var(--white);
-  padding: 4px 8px;
+  padding: 4px 6px;
   border-radius: 2px;
-  font-size: 14px;
-  text-align: center;
+  font-size: 13px;
 }
 .summary-header input[type="number"] {
-  width: 60px;
+  width: 50px;
   padding: 4px;
   border: 1px solid var(--grey-med);
   border-radius: 2px;
   text-align: center;
 }
-
-/* Tableau */
-table {
+.summary table {
+  margin-top: auto; /* pousse le tableau en bas */
   width: 100%;
   border-collapse: collapse;
   font-size: 12px;
 }
-table th,
-table td {
+.summary th,
+.summary td {
   border: 1px solid var(--grey-med);
   padding: 4px;
   text-align: center;
 }
 
-/* 8. Toolbar intégré */
+/* Bandeau gris */
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -206,29 +211,20 @@ table td {
   background: none;
   border: none;
   cursor: pointer;
+  margin-right: 6px;
 }
 .icon-btn .material-icons {
-  font-size: 20px;
+  font-size: 18px;
   color: var(--grey-dark);
 }
 .toolbar-right input[type="text"] {
-  width: 200px;
-  padding: 6px;
+  width: 180px;
+  padding: 4px;
   border: 1px solid var(--grey-med);
   border-radius: 4px;
 }
-.file-import {
-  position: relative;
-}
-.file-import input[type="file"] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
 .btn-import {
-  display: inline-block;
-  padding: 6px 12px;
+  padding: 4px 8px;
   border: 1px solid var(--grey-med);
   border-radius: 4px;
   background: var(--white);
@@ -236,19 +232,24 @@ table td {
   font-size: 12px;
 }
 #file-status {
-  margin-left: 8px;
+  margin-left: 6px;
   font-size: 12px;
   color: var(--grey-dark);
 }
 
-/* Dropzone */
+/* 3. Dropzone interactive */
 .dropzone {
   margin: 24px 0;
-  padding: 40px 0;
+  padding: 30px 0;
   text-align: center;
   border: 2px dashed var(--grey-med);
   background: var(--white);
   border-radius: 4px;
+  cursor: pointer;
+  transition: border-color .2s;
+}
+.dropzone.dragover {
+  border-color: var(--orange);
 }
 .dropzone .plus {
   font-size: 32px;
@@ -260,7 +261,7 @@ table td {
   line-height: 1.4;
 }
 
-/* Boutons bas */
+/* 4. Boutons bas */
 .actions {
   display: flex;
   justify-content: flex-end;
