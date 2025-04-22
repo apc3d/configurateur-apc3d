@@ -44,9 +44,8 @@ body {
   color: var(--white);
 }
 
-/* Wrapper panel + toolbar + actions */
+/* Wrapper (panel + toolbar) */
 .panel-wrapper {
-  display: none;
   border: 1px solid var(--grey-med);
   border-radius: 4px;
   background: var(--white);
@@ -59,38 +58,24 @@ body {
   display: grid;
   grid-template-columns: 0.8fr 1fr 1fr 1fr;
   gap: 24px;
+  background: transparent;
+  padding: 0;
+  border: none;
 }
 
-/* Col 1: viewer + spinner */
+/* Colonne 1: viewer */
 .viewer {
-  position: relative;
   width: 100%;
   height: 200px;
   background: #f0f0f0;
   border: 1px solid var(--grey-med);
   margin-bottom: 8px;
 }
-.spinner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 40px;
-  height: 40px;
-  margin: -20px 0 0 -20px;
-  border: 4px solid var(--grey-med);
-  border-top: 4px solid var(--orange);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-.hidden { display: none; }
 .preview input[type="file"] {
   margin-bottom: 12px;
 }
 
-/* Col 2: settings */
+/* Colonne 2: settings */
 .settings {
   display: flex;
   flex-direction: column;
@@ -109,11 +94,11 @@ body {
   background: var(--white);
 }
 
-/* Col 3: extras */
+/* Colonne 3: extras */
 .extras {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  justify-content: space-between;
 }
 .slider-container {
   display: flex;
@@ -123,12 +108,10 @@ body {
 input[type="range"] {
   flex: 1;
 }
-.delivery {
-  margin: auto 0; /* centre verticalement */
-}
 .delivery .opts {
   display: flex;
   gap: 4px;
+  margin: 12px 0;
 }
 .opt {
   flex: 1;
@@ -154,7 +137,7 @@ input[type="range"] {
   margin-right: 6px;
 }
 
-/* Col 4: summary */
+/* Colonne 4: summary */
 .summary {
   background: var(--grey-light);
   padding: 8px;
@@ -190,6 +173,8 @@ input[type="range"] {
   border-radius: 2px;
   text-align: center;
 }
+
+/* Tableau */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -202,7 +187,7 @@ table td {
   text-align: center;
 }
 
-/* Toolbar */
+/* 8. Toolbar intégré */
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -221,7 +206,6 @@ table td {
   background: none;
   border: none;
   cursor: pointer;
-  margin-right: 8px;
 }
 .icon-btn .material-icons {
   font-size: 20px;
@@ -243,6 +227,7 @@ table td {
   height: 0;
 }
 .btn-import {
+  display: inline-block;
   padding: 6px 12px;
   border: 1px solid var(--grey-med);
   border-radius: 4px;
@@ -256,12 +241,30 @@ table td {
   color: var(--grey-dark);
 }
 
+/* Dropzone */
+.dropzone {
+  margin: 24px 0;
+  padding: 40px 0;
+  text-align: center;
+  border: 2px dashed var(--grey-med);
+  background: var(--white);
+  border-radius: 4px;
+}
+.dropzone .plus {
+  font-size: 32px;
+  color: var(--grey-med);
+  margin-bottom: 8px;
+}
+.dropzone p {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
 /* Boutons bas */
 .actions {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  margin-top: 16px;
 }
 .btn {
   font-size: 14px;
@@ -284,28 +287,4 @@ table td {
   border: none;
   background: var(--orange);
   color: var(--white);
-}
-
-/* Dropzone initiale */
-#initial-dropzone {
-  margin: 24px 0;
-  padding: 40px 0;
-  text-align: center;
-  border: 2px dashed var(--grey-med);
-  background: var(--white);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: border-color 0.2s;
-}
-#initial-dropzone.dragover {
-  border-color: var(--orange);
-}
-#initial-dropzone .plus {
-  font-size: 32px;
-  color: var(--grey-med);
-  margin-bottom: 8px;
-}
-#initial-dropzone p {
-  font-size: 14px;
-  line-height: 1.4;
 }

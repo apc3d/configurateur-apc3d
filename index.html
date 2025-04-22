@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Configuration 3D</title>
+  <title>Configuration 3D</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- 1. Onglets -->
+  <!-- 1. Bandeau de progression -->
   <ul class="tabs">
     <li class="tab active">Configuration</li>
     <li class="tab">Validation</li>
@@ -17,17 +17,15 @@
     <li class="tab">Commande terminée</li>
   </ul>
 
-  <!-- Wrapper (panel + toolbar + actions), caché au départ -->
+  <!-- Wrapper (panel + toolbar) -->
   <div class="panel-wrapper">
 
-    <!-- 2. Panel 4 colonnes -->
+    <!-- 2. Panel principal 4 colonnes -->
     <div class="panel">
 
-      <!-- Colonne 1 : viewer 3D + upload STL/STEP -->
+      <!-- Colonne 1 : viewer 3D + upload STL/STEP -->
       <div class="col preview">
-        <div id="viewer" class="viewer">
-          <div id="spinner" class="spinner hidden"></div>
-        </div>
+        <div id="viewer" class="viewer"></div>
         <input type="file" id="file3d-upload" accept=".stl,.step,.stp">
         <p class="dims">
           Dimensions :<br>
@@ -72,7 +70,7 @@
         </div>
       </div>
 
-      <!-- Colonne 3 : Inserts / délai centré / checks -->
+      <!-- Colonne 3 : Inserts / délais / cases à cocher -->
       <div class="col extras">
         <div class="field">
           <label for="insertsRange">Inserts / taraudages</label>
@@ -84,9 +82,15 @@
         <div class="field delivery">
           <label>Délai de livraison</label>
           <div class="opts">
-            <div class="opt" data-type="fast">Fast<br><span>Mardi 29 Avril</span></div>
-            <div class="opt active" data-type="standard">Standard<br><span>Mardi 29 Avril</span></div>
-            <div class="opt" data-type="eco">Eco<br><span>Mardi 29 Avril</span></div>
+            <div class="opt" data-type="fast">
+              Fast<br><span>Mardi 29 Avril</span>
+            </div>
+            <div class="opt active" data-type="standard">
+              Standard<br><span>Mardi 29 Avril</span>
+            </div>
+            <div class="opt" data-type="eco">
+              Eco<br><span>Mardi 29 Avril</span>
+            </div>
           </div>
         </div>
         <div class="field checks">
@@ -127,7 +131,7 @@
 
     </div><!-- fin panel -->
 
-    <!-- Bandeau gris intégré -->
+    <!-- 8. Bandeau gris intégré sous le panel -->
     <div class="toolbar">
       <div class="toolbar-left">
         <button class="icon-btn" title="Supprimer">
@@ -150,24 +154,27 @@
       </div>
     </div>
 
-    <!-- Boutons bas, visibles en permanence -->
-    <div class="actions">
-      <button class="btn negotiate">Négocier vos tarifs</button>
-      <button class="btn quote">Générer un devis</button>
-      <button class="btn order">Commander maintenant</button>
-    </div>
-
   </div><!-- fin panel-wrapper -->
 
-  <!-- 1. Dropzone initiale, interactive -->
-  <div class="dropzone" id="initial-dropzone">
+  <!-- 4. Dropzone -->
+  <div class="dropzone">
     <div class="dz-content">
       <div class="plus">+</div>
-      <p>Déposez vos fichiers 3D ici<br>ou Sélectionnez des fichiers STL ou STEP</p>
+      <p>
+        Déposez vos fichiers 3D ici<br>
+        ou Sélectionnez des fichiers STL ou STEP
+      </p>
     </div>
   </div>
 
-  <!-- Three.js + STLLoader -->
+  <!-- 5. Boutons bas -->
+  <div class="actions">
+    <button class="btn negotiate">Négocier vos tarifs</button>
+    <button class="btn quote">Générer un devis</button>
+    <button class="btn order">Commander maintenant</button>
+  </div>
+
+  <!-- Three.js + STLLoader pour le viewer 3D -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
   <script src="script.js"></script>
