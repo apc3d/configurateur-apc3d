@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <!-- 1. Barre de progression -->
+  <!-- 1. Bandeau de progression -->
   <ul class="tabs">
     <li class="tab active">Configuration</li>
     <li class="tab">Validation</li>
@@ -16,13 +16,12 @@
     <li class="tab">Commande terminée</li>
   </ul>
 
-  <!-- 2. Contenu principal -->
+  <!-- 2. Panel principal 4 colonnes -->
   <div class="panel">
 
-    <!-- 2.1 Aperçu 3D -->
+    <!-- Colonne 1 : Aperçu 3D -->
     <div class="col preview">
       <div class="box">
-        <!-- Remplacez par votre image 3D réelle -->
         <img src="placeholder-3d.svg" alt="Aperçu 3D">
       </div>
       <p class="dims">
@@ -32,75 +31,50 @@
       </p>
     </div>
 
-    <!-- 2.2 Sélections -->
+    <!-- Colonne 2 : Sélections -->
     <div class="col settings">
       <div class="field">
         <label for="techno">Technologie</label>
-        <select id="techno">
-          <option>FDM</option>
-          <option>SLA</option>
-          <option>SLS</option>
-        </select>
+        <select id="techno">…</select>
       </div>
       <div class="field">
         <label for="material">Matériaux</label>
-        <select id="material">
-          <option>PLA</option>
-          <option>ABS</option>
-          <option>PETG</option>
-        </select>
+        <select id="material">…</select>
       </div>
       <div class="field">
         <label for="finish">Finition</label>
-        <select id="finish">
-          <option disabled selected>Sélectionnez</option>
-          <option>Brut</option>
-          <option>Poli</option>
-        </select>
+        <select id="finish">…</select>
       </div>
       <div class="field">
         <label for="color">Couleur</label>
-        <select id="color">
-          <option disabled selected>Sélectionnez</option>
-          <option>Blanc</option>
-          <option>Noir</option>
-        </select>
+        <select id="color">…</select>
       </div>
     </div>
 
-    <!-- 2.3 Options & Livraison -->
+    <!-- Colonne 3 : Inserts / délais / cases à cocher -->
     <div class="col extras">
-      <div class="field qty">
-        <label>Inserts / taraudages</label>
-        <div class="stepper">
-          <button id="dec">–</button>
-          <input type="number" id="quantity" value="1" min="1">
-          <button id="inc">+</button>
+      <div class="field">
+        <label for="insertsRange">Inserts / taraudages</label>
+        <div class="slider-container">
+          <input type="range" id="insertsRange" min="0" max="10" value="1">
+          <span id="insertsCount">1</span>
         </div>
       </div>
-
       <div class="field delivery">
         <label>Délai de livraison</label>
         <div class="opts">
-          <div class="opt" data-type="fast">
-            Fast<br><span>Mardi 29 Avril</span>
-          </div>
-          <div class="opt active" data-type="standard">
-            Standard<br><span>Mardi 29 Avril</span>
-          </div>
-          <div class="opt" data-type="eco">
-            Eco<br><span>Mardi 29 Avril</span>
-          </div>
+          <div class="opt" data-type="fast">Fast<br><span>Mardi 29 Avril</span></div>
+          <div class="opt active" data-type="standard">Standard<br><span>Mardi 29 Avril</span></div>
+          <div class="opt" data-type="eco">Eco<br><span>Mardi 29 Avril</span></div>
         </div>
       </div>
-
       <div class="field checks">
         <label><input type="checkbox"> Contrôle du fichier par un expert</label>
         <label><input type="checkbox"> Conserver l'orientation originale</label>
       </div>
     </div>
 
-    <!-- 2.4 Récapitulatif tarifs -->
+    <!-- Colonne 4 : Récapitulatif tarifs -->
     <div class="col summary">
       <div class="current">
         <div>Quantité</div><div id="sum-qty">1</div>
@@ -121,17 +95,26 @@
       </table>
     </div>
 
-    <!-- 2.5 Actions fichier & commentaire -->
-    <div class="col file-actions">
-      <button class="icon-btn" title="Supprimer">🗑️</button>
-      <button class="icon-btn" title="Copier">📋</button>
-      <input type="text" placeholder="Commentaire…">
-      <input type="file" accept=".pdf,.txt,.doc,.docx,.xlsx,.pptx,.jpg,.jpeg,.png">
-    </div>
-
   </div>
 
-  <!-- 3. Dropzone -->
+  <!-- 3. Bandeau gris sous le panel -->
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <button class="icon-btn" title="Supprimer">🗑️</button>
+      <button class="icon-btn" title="Dupliquer">📋</button>
+    </div>
+    <div class="toolbar-right">
+      <input type="text" placeholder="Commentaire…">
+      <div class="file-import">
+        <label for="file-upload" class="btn-import">Choisir un fichier</label>
+        <input type="file" id="file-upload"
+               accept=".pdf,.txt,.doc,.docx,.xlsx,.pptx,.jpg,.jpeg,.png">
+        <span id="file-status"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Dropzone -->
   <div class="dropzone">
     <div class="dz-content">
       <div class="plus">+</div>
@@ -139,7 +122,7 @@
     </div>
   </div>
 
-  <!-- 4. Boutons bas -->
+  <!-- 5. Boutons bas -->
   <div class="actions">
     <button class="btn negotiate">Négocier vos tarifs</button>
     <button class="btn quote">Générer un devis</button>
