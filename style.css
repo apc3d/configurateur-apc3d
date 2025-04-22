@@ -9,20 +9,17 @@ body {
   display: flex;
   justify-content: space-around;
   background: white;
-  padding: 15px 10px;
+  padding: 10px;
   border-bottom: 1px solid lightgray;
 }
 
 .progress-bar .step {
   color: grey;
-  padding: 10px 25px;
-  background: #d3d3d3;
-  border-radius: 5px;
 }
 
 .progress-bar .step.active {
-  background: orange;
-  color: white;
+  color: orange;
+  font-weight: bold;
 }
 
 .upload-section {
@@ -52,7 +49,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height: 350px; /* <-- hauteur fixe réglable ici */
+  height: 400px; /* FIXE 400px comme tu as demandé */
   overflow-y: auto;
 }
 
@@ -61,9 +58,8 @@ body {
   border-right: 1px solid #e0e0e0;
 }
 
-/* Aperçu 3D */
 .preview-3d {
-  height: 100%;
+  height: 300px;
   border: 1px solid #ddd;
   background: #fafafa;
   display: flex;
@@ -73,7 +69,20 @@ body {
   color: #aaa;
 }
 
-/* Délai boutons */
+.column-2 select, .column-3 input, .column-4 input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+h3 {
+  margin: 10px 0 5px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Boutons de délai */
 .delivery-buttons {
   display: flex;
   gap: 5px;
@@ -89,7 +98,6 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 14px;
-  border-radius: 5px;
 }
 
 .delivery-btn.selected {
@@ -97,16 +105,20 @@ body {
   color: white;
 }
 
-/* Cases à cocher */
+/* Checkbox */
 .checkbox-group {
-  margin-top: 10px;
+  margin-top: 20px;
   font-size: 14px;
+}
+
+.checkbox-group label {
+  margin-left: 5px;
 }
 
 /* Tableau des prix */
 .pricing-table {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 20px;
   border-collapse: collapse;
 }
 
@@ -120,7 +132,7 @@ body {
   background: #f0f0f0;
 }
 
-/* Bandeau gris */
+/* Bandeau du bas */
 .bottom-bar {
   display: flex;
   justify-content: space-between;
@@ -143,7 +155,7 @@ body {
   padding: 10px 20px;
 }
 
-/* Boutons du bas */
+/* Boutons d'action */
 .action-buttons {
   text-align: center;
   margin: 30px;
@@ -157,7 +169,6 @@ body {
   margin: 5px;
   cursor: pointer;
   transition: 0.3s;
-  border-radius: 5px;
 }
 
 .btn-outline-grey {
@@ -168,7 +179,6 @@ body {
   margin: 5px;
   cursor: pointer;
   transition: 0.3s;
-  border-radius: 5px;
 }
 
 .btn-filled-orange {
@@ -179,7 +189,6 @@ body {
   margin: 5px;
   cursor: pointer;
   transition: 0.3s;
-  border-radius: 5px;
 }
 
 /* Hover effets */
