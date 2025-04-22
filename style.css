@@ -49,16 +49,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height: 450px; /* <<< Hauteur fixe 450px comme demandé */
+  height: 450px; /* HAUTEUR FIXE DEMANDÉE */
   overflow-y: auto;
 }
 
-/* Traits de séparation entre les colonnes */
+/* Traits de séparation entre colonnes */
 .column:not(:last-child) {
   border-right: 1px solid #e0e0e0;
 }
 
-/* Pour l'aperçu 3D */
+/* Aperçu 3D */
 .preview-3d {
   height: 300px;
   border: 1px solid #ddd;
@@ -100,7 +100,7 @@ h3 {
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 14px;
-  border-radius: 5px; /* léger arrondi */
+  border-radius: 5px;
 }
 
 .delivery-btn.selected {
