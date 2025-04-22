@@ -23,10 +23,10 @@
     <!-- 2.1 Panel 4 colonnes -->
     <div class="panel">
 
-      <!-- Colonne 1 : viewer 3D + upload STL/STEP + barre de progression -->
+      <!-- Colonne 1 : viewer 3D + upload STL/STEP + barre de chargement -->
       <div class="col preview">
         <div id="viewer" class="viewer"></div>
-        <progress id="load-progress" max="100" value="0" class="hidden"></progress>
+        <progress id="load-progress" class="hidden"></progress>
         <input type="file" id="file3d-upload" accept=".stl,.step,.stp">
         <p class="dims">
           Dimensions :<br>
@@ -40,33 +40,27 @@
         <div class="field">
           <label for="techno">Technologie</label>
           <select id="techno">
-            <option>FDM</option>
-            <option>SLA</option>
-            <option>SLS</option>
+            <option>FDM</option><option>SLA</option><option>SLS</option>
           </select>
         </div>
         <div class="field">
           <label for="material">Matériaux</label>
           <select id="material">
-            <option>PLA</option>
-            <option>ABS</option>
-            <option>PETG</option>
+            <option>PLA</option><option>ABS</option><option>PETG</option>
           </select>
         </div>
         <div class="field">
           <label for="finish">Finition</label>
           <select id="finish">
             <option disabled selected>Sélectionnez</option>
-            <option>Brut</option>
-            <option>Poli</option>
+            <option>Brut</option><option>Poli</option>
           </select>
         </div>
         <div class="field">
           <label for="color">Couleur</label>
           <select id="color">
             <option disabled selected>Sélectionnez</option>
-            <option>Blanc</option>
-            <option>Noir</option>
+            <option>Blanc</option><option>Noir</option>
           </select>
         </div>
       </div>
@@ -120,7 +114,6 @@
             <tr><td>3</td><td>195.98</td><td>587.94</td></tr>
             <tr><td>4</td><td>195.46</td><td>781.84</td></tr>
             <tr><td>5</td><td>195.07</td><td>975.35</td></tr>
-            <tr><td>6</td><td>194.00</td><td>1 164.00</td></tr>
           </tbody>
         </table>
       </div>
@@ -130,19 +123,13 @@
     <!-- Bandeau gris -->
     <div class="toolbar">
       <div class="toolbar-left">
-        <button class="icon-btn" title="Supprimer">
-          <i class="material-icons">delete</i>
-        </button>
-        <button class="icon-btn" title="Dupliquer">
-          <i class="material-icons">content_copy</i>
-        </button>
+        <button class="icon-btn" title="Supprimer"><i class="material-icons">delete</i></button>
+        <button class="icon-btn" title="Dupliquer"><i class="material-icons">content_copy</i></button>
       </div>
       <div class="toolbar-right">
         <input type="text" placeholder="Commentaire…">
         <div class="file-import">
-          <label for="file-upload" class="btn-import">
-            Joindre un fichier (pdf, txt, doc…)
-          </label>
+          <label for="file-upload" class="btn-import">Joindre un fichier</label>
           <input type="file" id="file-upload"
                  accept=".pdf,.txt,.doc,.docx,.xlsx,.pptx,.jpg,.jpeg,.png">
           <span id="file-status"></span>
@@ -150,10 +137,12 @@
       </div>
     </div>
 
-    <!-- 2ème upload 3D -->
-    <div id="secondary-upload" class="secondary-upload hidden">
-      <label for="file3d-upload2" class="btn-import">Ajouter un autre fichier 3D</label>
-      <input type="file" id="file3d-upload2" accept=".stl,.step,.stp">
+    <!-- 2ᵉ dropzone identique -->
+    <div class="dropzone secondary-dropzone hidden">
+      <div class="dz-content">
+        <div class="plus">+</div>
+        <p>Déposez vos fichiers 3D ici<br>ou sélectionnez un STL / STEP</p>
+      </div>
     </div>
 
   </div><!-- fin panel-wrapper -->
@@ -162,10 +151,7 @@
   <div class="dropzone" id="initial-dropzone">
     <div class="dz-content">
       <div class="plus">+</div>
-      <p>
-        Déposez vos fichiers 3D ici<br>
-        ou sélectionnez un STL / STEP
-      </p>
+      <p>Déposez vos fichiers 3D ici<br>ou sélectionnez un STL / STEP</p>
     </div>
   </div>
 
