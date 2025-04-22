@@ -1,8 +1,10 @@
-import * as THREE from 'three';
-import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
+// script.js
+
+// on part du principe que three.min.js et STLLoader.js sont déjà inclus via <script> dans index.html
 
 let scene, camera, renderer, mesh;
 
+// Initialise et lance l’anim du viewer 3D dans le conteneur passé
 function initViewer(container) {
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(
@@ -23,7 +25,7 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-// Génère une nouvelle config à chaque upload
+// Crée un nouveau bloc de config en clonant le template
 function createConfig(file) {
   const container = document.getElementById('configs-container');
   const tpl       = document.getElementById('config-template');
@@ -43,7 +45,7 @@ function createConfig(file) {
   const opts       = wrapper.querySelectorAll('.opt');
   const import2D   = wrapper.querySelector('.file-import');
 
-  // init 3D
+  // init du viewer dans ce bloc
   initViewer(viewerEl);
 
   // chargement 3D
@@ -52,37 +54,39 @@ function createConfig(file) {
     if (!f) return;
     overlay.classList.remove('hidden');
     overlayTxt.textContent = '0%';
+
     const reader = new FileReader();
-    reader.onprogress = ev => {
-      if (ev.lengthComputable) {
-        overlayTxt.textContent = Math.floor((ev.loaded / ev.total) * 100) + '%';
+    reader.onprogress = e => {
+      if (e.lengthComputable) {
+        overlayTxt.textContent = Math.floor((e.loaded / e.total) * 100) + '%';
       }
     };
     reader.onload = ev => {
-      const geom = new STLLoader().parse(ev.target.result);
+      const geom = new THREE.STLLoader().parse(ev.target.result);
       if (mesh) scene.remove(mesh);
       mesh = new THREE.Mesh(geom, new THREE.MeshPhongMaterial({ color: 0x606060 }));
       mesh.scale.set(0.5, 0.5, 0.5);
       scene.add(mesh);
+
+      // recentrage
       const center = new THREE.Box3().setFromObject(mesh).getCenter(new THREE.Vector3());
       mesh.position.sub(center);
       camera.position.set(0, 0, 100);
       camera.lookAt(scene.position);
+
       overlay.classList.add('hidden');
     };
     reader.readAsArrayBuffer(f);
   });
 
   // slider inserts
-  slider.addEventListener('input', e => (sliderCnt.textContent = e.target.value));
+  slider.addEventListener('input', e => sliderCnt.textContent = e.target.value);
 
-  // délai
-  opts.forEach(opt =>
-    opt.addEventListener('click', () => {
-      opts.forEach(o => o.classList.remove('active'));
-      opt.classList.add('active');
-    })
-  );
+  // choix délai
+  opts.forEach(opt => opt.addEventListener('click', () => {
+    opts.forEach(o => o.classList.remove('active'));
+    opt.classList.add('active');
+  }));
 
   // quantité / prix
   qtyInput.addEventListener('change', () => {
@@ -91,39 +95,48 @@ function createConfig(file) {
     totalPrice.textContent = (q * parseFloat(unitPrice.textContent)).toFixed(2);
   });
 
-  // import 2D/IMG
-  import2D.addEventListener('change', e => {
-    // le navigateur affiche déjà le nom du fichier choisi
+  // import PDF/IMG (le champ natif affiche déjà le nom du fichier)
+  import2D.addEventListener('change', () => {});
+}
+
+// met en place click + drag-n-drop sur une dropzone
+function setupDropZone(zone, input) {
+  // clic ouvre le file picker
+  zone.addEventListener('click', () => input.click());
+  // dragenter/dragover => style
+  zone.addEventListener('dragover', e => {
+    e.preventDefault();
+    zone.classList.add('dragover');
+  });
+  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+  // drop => on alimente l’input et on déclenche le change
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('dragover');
+    if (!e.dataTransfer.files.length) return;
+    input.files = e.dataTransfer.files;
+    input.dispatchEvent(new Event('change'));
   });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const initDrop = document.getElementById('initial-dropzone');
-  const initIn   = document.getElementById('file3d-upload-init');
-  const secDrop  = document.querySelector('.secondary-dropzone');
-  const secIn    = document.getElementById('file3d-upload2');
+  // dropzone initiale
+  const initialZone = document.getElementById('initial-dropzone');
+  const initialIn   = document.getElementById('file3d-upload-init');
+  setupDropZone(initialZone, initialIn);
 
-  function setupDrop(drop, input) {
-    drop.addEventListener('click', () => input.click());
-    drop.addEventListener('dragover', e => (e.preventDefault(), drop.classList.add('dragover')));
-    drop.addEventListener('dragleave', () => drop.classList.remove('dragover'));
-    drop.addEventListener('drop', e => {
-      e.preventDefault();
-      drop.classList.remove('dragover');
-      if (!e.dataTransfer.files.length) return;
-      input.files = e.dataTransfer.files;
-      input.dispatchEvent(new Event('change'));
-    });
-  }
-
-  setupDrop(initDrop, initIn);
-  initIn.addEventListener('change', () => {
-    createConfig(initIn.files[0]);
-    initDrop.style.display   = 'none';
-    secDrop.classList.remove('hidden');
+  initialIn.addEventListener('change', () => {
+    createConfig(initialIn.files[0]);
+    initialZone.style.display = 'none';
+    // on affiche la dropzone secondaire
+    document.getElementById('secondary-dropzone').classList.remove('hidden');
   });
 
-  setupDrop(secDrop, secIn);
+  // dropzone secondaire (pour 2ᵉ, 3ᵉ… config)
+  const secZone = document.getElementById('secondary-dropzone');
+  const secIn   = document.getElementById('file3d-upload2');
+  setupDropZone(secZone, secIn);
+
   secIn.addEventListener('change', () => {
     createConfig(secIn.files[0]);
     secIn.value = '';
