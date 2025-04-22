@@ -1,5 +1,5 @@
 :root {
-  --orange:   #FFA500;
+  --orange:     #FFA500;
   --grey-light: #EEEEEE;
   --grey-med:   #CCCCCC;
   --grey-dark:  #333333;
@@ -8,7 +8,12 @@
   --bg:         #F9F9F9;
 }
 
-* { box-sizing:border-box; margin:0; padding:0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: 'Segoe UI', sans-serif;
   font-size: 14px;
@@ -19,27 +24,27 @@ body {
 
 /* 1. Onglets */
 .tabs {
-  list-style:none;
-  display:flex;
-  gap:4px;
-  margin-bottom:20px;
+  list-style: none;
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
 }
 .tab {
-  flex:1;
-  text-align:center;
-  padding:12px 0;
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
   background: var(--grey-light);
   color: var(--grey-dark);
-  border-radius:4px;
-  font-weight:500;
-  pointer-events:none;
+  border-radius: 4px;
+  font-weight: 500;
+  pointer-events: none;
 }
 .tab.active {
   background: var(--orange);
   color: var(--white);
 }
 
-/* 2. Panel principal 4 colonnes */
+/* 2. Panel 4 colonnes */
 .panel {
   display: grid;
   grid-template-columns: 160px 1fr 260px 300px;
@@ -50,123 +55,250 @@ body {
   border-radius: 4px;
 }
 
-/* Aperçu & dims */
-.preview .box { /* inchangé */ }
-.preview .dims { /* inchangé */ }
+/* Preview */
+.preview .box {
+  width: 120px;
+  height: 120px;
+  background: #F0F0F0;
+  border: 1px solid var(--grey-med);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+.preview .dims {
+  font-size: 12px;
+  line-height: 1.4;
+}
 
 /* Settings menus empilés */
 .settings {
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-.field label { /* inchangé */ }
-.field select { /* inchangé */ }
+.field label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+.field select {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid var(--grey-med);
+  border-radius: 4px;
+  background: var(--white);
+}
 
-/* Extras : espacement vertical */
+/* Extras (col 3) */
 .extras {
-  display:flex;
-  flex-direction:column;
-  gap:16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
-.slider-container { display:flex; align-items:center; gap:8px; }
-.delivery .opts { display:flex; gap:4px; margin-top:4px; }
-.opt { /* inchangé */ }
-.opt.active { /* inchangé */ }
-.checks { display:flex; flex-direction:column; gap:4px; }
-.checks input { margin-right:6px; }
-
-/* Récap tarifs */
-.summary {
-  background: var(--grey-light);
-  padding:8px;
-  border-radius:4px;
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-.current {
-  display:grid;
-  grid-template-columns: repeat(4,1fr);
-  gap:4px;
-  text-align:center;
-  margin-bottom:8px;
-  font-size:13px;
+input[type="range"] {
+  flex: 1;
 }
-.current > div:nth-child(odd) { align-self:center; }
-.current #sum-qty,
-.current #unit-price,
-.current #total-price {
+.delivery .opts {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+.opt {
+  flex: 1;
+  padding: 8px 4px;
+  border: 1px solid var(--grey-med);
+  border-radius: 2px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 13px;
+}
+.opt span {
+  display: block;
+  font-size: 11px;
+}
+.opt.active {
   background: var(--orange);
   color: var(--white);
-  padding:4px 0;
-  border-radius:2px;
+  border-color: var(--orange);
 }
+.checks {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.checks input {
+  margin-right: 6px;
+}
+
+/* Récapitulatif tarifs (col 4) */
+.summary {
+  background: var(--grey-light);
+  padding: 8px;
+  border-radius: 4px;
+}
+.summary-header {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+  align-items: flex-end;
+}
+.summary-header .field {
+  display: flex;
+  flex-direction: column;
+}
+.summary-header .field label {
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+.summary-header #unit-price,
+.summary-header #total-price {
+  background: var(--orange);
+  color: var(--white);
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-size: 14px;
+  text-align: center;
+}
+.stepper {
+  display: flex;
+  align-items: center;
+}
+.stepper button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--grey-med);
+  background: var(--white);
+  cursor: pointer;
+  font-size: 16px;
+}
+.stepper input {
+  width: 48px;
+  text-align: center;
+  border-top: 1px solid var(--grey-med);
+  border-bottom: 1px solid var(--grey-med);
+}
+
+/* Tableau */
 table {
-  width:100%;
-  border-collapse:collapse;
-  font-size:12px;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
 }
-table th, table td {
-  border:1px solid var(--grey-med);
-  padding:4px;
-  text-align:center;
+table th,
+table td {
+  border: 1px solid var(--grey-med);
+  padding: 4px;
+  text-align: center;
 }
 
 /* 3. Bandeau gris sous le panel */
 .toolbar {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: var(--grey-light);
-  padding:8px;
-  border-radius:4px;
-  margin:16px 0;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 16px 0;
 }
-.toolbar-left {
-  display:flex;
-  align-items:center;
+.toolbar-left,
+.toolbar-right {
+  display: flex;
+  align-items: center;
 }
-.toolbar .icon-btn {
-  font-size:18px;
-  background:none;
-  border:none;
-  cursor:pointer;
-  margin-right:8px;
+.toolbar-left .icon-btn {
+  font-size: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 8px;
 }
 .toolbar-right {
-  display:flex;
-  align-items:center;
-  gap:8px;
+  gap: 8px;
+  width: 100%;
 }
 .toolbar-right input[type="text"] {
-  flex:1;
-  padding:6px;
-  border:1px solid var(--grey-med);
-  border-radius:4px;
+  flex: 1;
+  padding: 6px;
+  border: 1px solid var(--grey-med);
+  border-radius: 4px;
 }
 .file-import {
-  position:relative;
+  position: relative;
 }
 .file-import input[type="file"] {
-  position:absolute;
-  opacity:0;
-  width:0; height:0;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 .btn-import {
-  display:inline-block;
-  padding:6px 12px;
+  display: inline-block;
+  padding: 6px 12px;
   background: var(--white);
-  border:1px solid var(--grey-med);
-  border-radius:4px;
-  cursor:pointer;
-  font-size:12px;
+  border: 1px solid var(--grey-med);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
 }
 #file-status {
-  font-size:12px;
-  color:var(--grey-dark);
-  margin-left:8px;
+  font-size: 12px;
+  color: var(--grey-dark);
+  margin-left: 8px;
 }
 
-/* 4. Dropzone & 5. Boutons bas (inchangés) */
-.dropzone { /* inchangé */ }
-.actions { /* inchangé */ }
-.btn { /* inchangé */ }
+/* 4. Dropzone */
+.dropzone {
+  margin: 24px 0;
+  padding: 40px 0;
+  text-align: center;
+  border: 2px dashed var(--grey-med);
+  background: var(--white);
+  border-radius: 4px;
+}
+.dropzone .plus {
+  font-size: 32px;
+  color: var(--grey-med);
+  margin-bottom: 8px;
+}
+.dropzone p {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* 5. Boutons bas */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.btn {
+  font-size: 14px;
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.negotiate {
+  border: 2px solid var(--blue);
+  background: var(--white);
+  color: var(--blue);
+}
+.quote {
+  border: 1px solid var(--grey-med);
+  background: var(--white);
+  color: var(--grey-dark);
+}
+.order {
+  border: none;
+  background: var(--orange);
+  color: var(--white);
+}
+
 
