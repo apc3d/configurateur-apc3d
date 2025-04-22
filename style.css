@@ -49,6 +49,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: 500px;
 }
 
 /* Traits de séparation entre les colonnes */
