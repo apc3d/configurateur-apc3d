@@ -5,28 +5,26 @@ body {
   background: #f5f5f5;
 }
 
-/* Progression */
 .progress-bar {
   display: flex;
   justify-content: space-around;
   background: white;
-  padding: 10px;
+  padding: 15px 10px;
   border-bottom: 1px solid lightgray;
 }
 
-.step {
+.progress-bar .step {
   color: grey;
-  padding: 10px 20px;
-  background: lightgrey;
+  padding: 10px 25px;
+  background: #d3d3d3;
   border-radius: 5px;
 }
 
-.step.active {
+.progress-bar .step.active {
   background: orange;
   color: white;
 }
 
-/* Section Upload */
 .upload-section {
   text-align: center;
   margin: 20px;
@@ -40,24 +38,25 @@ body {
   display: inline-block;
 }
 
-/* Container général */
 .config-container {
   display: flex;
   margin: 20px;
   gap: 10px;
 }
 
-/* Colonnes */
 .column {
   background: white;
   flex: 1;
   padding: 20px;
   border: 1px solid #ddd;
-  overflow: hidden;
-  height: 400px; /* Hauteur fixe */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 400px; /* <-- hauteur fixe réglable ici */
+  overflow-y: auto;
 }
 
-/* Traits entre colonnes */
+/* Traits de séparation entre colonnes */
 .column:not(:last-child) {
   border-right: 1px solid #e0e0e0;
 }
@@ -74,23 +73,7 @@ body {
   color: #aaa;
 }
 
-/* Titres */
-h3 {
-  margin: 10px 0 5px 0;
-  font-size: 16px;
-  color: #333;
-}
-
-/* Sélecteurs et inputs */
-.column select,
-.column input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-}
-
-/* Boutons de délai */
+/* Délai boutons */
 .delivery-buttons {
   display: flex;
   gap: 5px;
@@ -106,6 +89,7 @@ h3 {
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 14px;
+  border-radius: 5px;
 }
 
 .delivery-btn.selected {
@@ -115,18 +99,14 @@ h3 {
 
 /* Cases à cocher */
 .checkbox-group {
-  margin-top: 20px;
+  margin-top: 10px;
   font-size: 14px;
 }
 
-.checkbox-group label {
-  margin-left: 5px;
-}
-
-/* Tableau */
+/* Tableau des prix */
 .pricing-table {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
   border-collapse: collapse;
 }
 
@@ -140,13 +120,33 @@ h3 {
   background: #f0f0f0;
 }
 
-/* Bandeau du bas */
+/* Bandeau gris */
 .bottom-bar {
   display: flex;
-  justify-content: center;
-  background: #f5f5f5;
-  padding: 20px;
-  gap: 20px;
+  justify-content: space-between;
+  background: #ddd;
+  padding: 10px 20px;
+  margin: 20px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.right-upload .upload-label {
+  background: #ccc;
+  border: none;
+  padding: 10px 20px;
+}
+
+/* Boutons du bas */
+.action-buttons {
+  text-align: center;
+  margin: 30px;
 }
 
 .btn-outline-blue {
@@ -154,9 +154,10 @@ h3 {
   color: blue;
   padding: 10px 20px;
   background: none;
-  border-radius: 5px;
-  font-weight: bold;
+  margin: 5px;
   cursor: pointer;
+  transition: 0.3s;
+  border-radius: 5px;
 }
 
 .btn-outline-grey {
@@ -164,9 +165,10 @@ h3 {
   color: grey;
   padding: 10px 20px;
   background: none;
-  border-radius: 5px;
-  font-weight: bold;
+  margin: 5px;
   cursor: pointer;
+  transition: 0.3s;
+  border-radius: 5px;
 }
 
 .btn-filled-orange {
@@ -174,9 +176,10 @@ h3 {
   background: orange;
   color: white;
   padding: 10px 20px;
-  border-radius: 5px;
-  font-weight: bold;
+  margin: 5px;
   cursor: pointer;
+  transition: 0.3s;
+  border-radius: 5px;
 }
 
 /* Hover effets */
@@ -185,3 +188,4 @@ h3 {
 .btn-filled-orange:hover {
   opacity: 0.8;
 }
+
