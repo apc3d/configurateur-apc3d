@@ -1,154 +1,140 @@
+/* ----- GÉNÉRAL ----- */
 body {
+    font-family: Arial, sans-serif;
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    padding: 0;
+    background: #f5f5f5;
 }
 
-.header {
-    background-color: #FFA500;
-    color: white;
-    padding: 15px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-}
-
+/* ----- STRUCTURE DES COLONNES ----- */
 .config-container {
     display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 1400px;
+    gap: 20px;
 }
 
-.config-colonne {
+.colonne {
     flex: 1;
-    padding: 15px;
-    background: white;
+    background: #ffffff;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    max-height: 550px; /* ✅ Hauteur fixée */
-    overflow-y: auto;  /* ✅ Scroll si nécessaire */
+    padding: 20px;
+    box-sizing: border-box;
+    height: 600px; /* ← ← ← HAUTEUR FIXE à modifier ici */
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
-/* ✅ Séparateur de colonnes */
-.config-container > .config-colonne:not(:last-child) {
-    border-right: 2px solid #eee;
+/* ----- TITRES ----- */
+h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
 }
 
-/* ✅ Responsive pour mobile */
-@media screen and (max-width: 768px) {
-    .config-container {
-        flex-direction: column;
-    }
-
-    .config-colonne {
-        max-height: none;
-        overflow-y: visible;
-    }
-}
-
-.boutons-bas {
-    text-align: center;
-    margin: 30px 0;
-}
-
-.boutons-bas button {
-    margin: 0 10px;
-    padding: 10px 20px;
-    font-size: 18px;
+/* ----- INPUTS ET SELECTS ----- */
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    border: 2px solid transparent;
+}
+
+/* ----- BOUTONS DE DÉLAI ----- */
+.delai-button {
+    padding: 12px;
+    margin: 5px 0;
+    background: #fff;
+    border: 2px solid #ff7b00;
+    color: #ff7b00;
+    font-weight: bold;
+    border-radius: 8px;
     cursor: pointer;
+    width: 100%;
     transition: 0.3s;
 }
-
-.bouton-negocier {
-    background: white;
-    border-color: #3498db;
-    color: #3498db;
-}
-
-.bouton-negocier:hover {
-    background: #3498db;
-    color: white;
-}
-
-.bouton-devis {
-    background: white;
-    border-color: #7f8c8d;
-    color: #7f8c8d;
-}
-
-.bouton-devis:hover {
-    background: #7f8c8d;
-    color: white;
-}
-
-.bouton-commander {
-    background: #FFA500;
-    color: white;
-    border: none;
-}
-
-.bouton-commander:hover {
-    background: #e69500;
-}
-
-/* ✅ Boutons de délais de livraison */
-.delai-button {
-    margin: 5px 5px;
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    background-color: white;
-    width: 100%;
-    text-align: center;
-}
-
+.delai-button:hover,
 .delai-button.selected {
-    background-color: #FFA500;
-    color: white;
-    border: 1px solid #FFA500;
+    background: #ff7b00;
+    color: #fff;
 }
 
-/* ✅ Bandeau dupliqué / supprimé */
-.bandeau-actions {
-    background-color: #f0f0f0;
+/* ----- CASES À COCHER ----- */
+.checkbox-container {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
+    flex-direction: column;
+    gap: 5px;
     margin-top: 10px;
-    border-radius: 8px;
 }
 
-.bandeau-actions .gauche,
-.bandeau-actions .droite {
+/* ----- BOUTONS EN BAS ----- */
+.bottom-buttons {
     display: flex;
-    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
     gap: 10px;
 }
 
-/* ✅ Icônes */
-.bandeau-actions img {
-    width: 24px;
-    height: 24px;
+.bottom-buttons button {
+    padding: 12px 25px;
+    font-weight: bold;
+    border-radius: 8px;
     cursor: pointer;
+    border: 2px solid #ccc;
+    background: none;
+    transition: 0.3s;
 }
 
-/* ✅ Champs texte et upload */
-textarea.commentaire {
-    width: 200px;
-    height: 40px;
-    resize: none;
+.bottom-buttons .negocier {
+    border-color: #007bff;
+    color: #007bff;
+}
+.bottom-buttons .negocier:hover {
+    background: #007bff;
+    color: white;
 }
 
-input[type="file"].upload-pdf {
-    width: 150px;
+.bottom-buttons .devis {
+    border-color: #6c757d;
+    color: #6c757d;
+}
+.bottom-buttons .devis:hover {
+    background: #6c757d;
+    color: white;
 }
 
+.bottom-buttons .commander {
+    background: #ff7b00;
+    color: white;
+    border: none;
+}
+.bottom-buttons .commander:hover {
+    background: #e06700;
+}
+
+/* ----- TABLEAU DES PRIX FIXES ----- */
+.tableau-prix {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.tableau-prix th,
+.tableau-prix td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+/* ----- SÉPARATION ENTRE COLONNES ----- */
+.config-container > .colonne:not(:last-child) {
+    border-right: 2px solid #eee; /* Trait gris clair entre colonnes */
+}
