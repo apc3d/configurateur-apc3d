@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Configuration 3D</title>
+  <title>Configuration 3D</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -17,156 +17,163 @@
     <li class="tab">Commande terminée</li>
   </ul>
 
-  <!-- Conteneur de configs -->
-  <div id="configs-container"></div>
+  <!-- Wrapper (panel + toolbar) -->
+  <div class="panel-wrapper">
 
-  <!-- Dropzone secondaire (hors cadre), cachée initialement -->
-  <div class="dropzone secondary-dropzone hidden" id="secondary-dropzone">
-    <input type="file" id="file3d-upload2" accept=".stl,.step,.stp" hidden />
-    <div class="dz-content">
-      <div class="plus">+</div>
-      <p>Déposez vos fichiers 3D ici<br />ou sélectionnez un STL / STEP</p>
+    <!-- 2. Panel principal 4 colonnes -->
+    <div class="panel">
+
+      <!-- Colonne 1 : viewer 3D + upload STL/STEP -->
+      <div class="col preview">
+        <div id="viewer" class="viewer">
+          <div class="progress-overlay hidden"><span>0%</span></div>
+        </div>
+        <!-- Affichage du nom de fichier (REF) -->
+        <div class="file-ref">REF : <span class="file-name">–</span></div>
+        <p class="dims">
+          Dimensions :<br />
+          120.00 × 65.00 × 10.00 mm<br />
+          Volume : 45.22 cm³
+        </p>
+      </div>
+
+      <!-- Colonne 2 : Sélections -->
+      <div class="col settings">
+        <div class="field">
+          <label for="techno">Technologie</label>
+          <select id="techno">
+            <option>FDM</option>
+            <option>SLA</option>
+            <option>SLS</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="material">Matériaux</label>
+          <select id="material">
+            <option>PLA</option>
+            <option>ABS</option>
+            <option>PETG</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="finish">Finition</label>
+          <select id="finish">
+            <option disabled selected>Sélectionnez</option>
+            <option>Brut</option>
+            <option>Poli</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="color">Couleur</label>
+          <select id="color">
+            <option disabled selected>Sélectionnez</option>
+            <option>Blanc</option>
+            <option>Noir</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Colonne 3 : Inserts / délais / cases à cocher -->
+      <div class="col extras">
+        <div class="field">
+          <label for="insertsRange">Inserts / taraudages manuels</label>
+          <div class="slider-container">
+            <input type="range" id="insertsRange" min="0" max="50" value="0">
+            <span id="insertsCount">0</span>
+          </div>
+        </div>
+        <div class="field delivery">
+          <label>Délai de livraison</label>
+          <div class="opts">
+            <div class="opt" data-type="fast">
+              Fast<br><span>Mardi 29 Avril</span>
+            </div>
+            <div class="opt active" data-type="standard">
+              Standard<br><span>Mardi 29 Avril</span>
+            </div>
+            <div class="opt" data-type="eco">
+              Eco<br><span>Mardi 29 Avril</span>
+            </div>
+          </div>
+        </div>
+        <div class="field checks">
+          <label><input type="checkbox"> Contrôle du fichier par un expert</label>
+          <label><input type="checkbox"> Conserver l'orientation originale</label>
+        </div>
+      </div>
+
+      <!-- Colonne 4 : Récapitulatif tarifs -->
+      <div class="col summary">
+        <div class="summary-header">
+          <div class="field qty-order">
+            <label for="quantity">Quantité</label>
+            <input type="number" id="quantity" value="1" min="1">
+          </div>
+          <div class="field">
+            <label>Unité (EUR)</label>
+            <div id="unit-price">198.41</div>
+          </div>
+          <div class="field">
+            <label>Total (EUR)</label>
+            <div id="total-price">198.41</div>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Quantité</th><th>Unité (€)</th><th>Total (€)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>198.41</td><td>198.41</td></tr>
+            <tr><td>2</td><td>196.80</td><td>393.60</td></tr>
+            <tr><td>3</td><td>195.98</td><td>587.94</td></tr>
+            <tr><td>4</td><td>195.46</td><td>781.84</td></tr>
+            <tr><td>5</td><td>195.07</td><td>975.35</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div><!-- fin panel -->
+
+    <!-- 8. Bandeau gris intégré sous le panel -->
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <button class="icon-btn" title="Supprimer">
+          <i class="material-icons">delete</i>
+        </button>
+        <button class="icon-btn" title="Dupliquer">
+          <i class="material-icons">content_copy</i>
+        </button>
+      </div>
+      <div class="toolbar-right">
+        <input type="text" placeholder="Commentaire…">
+        <div class="file-import">
+          <label for="file-upload" class="btn-import">
+            Joindre un fichier (pdf, txt, doc, docx, xlsx, pptx, jpg, jpeg, png)
+          </label>
+          <input type="file" id="file-upload"
+                 accept=".pdf,.txt,.doc,.docx,.xlsx,.pptx,.jpg,.jpeg,.png">
+          <span id="file-status"></span>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- Dropzone initiale interactive (hors cadre) -->
-  <div class="dropzone" id="initial-dropzone">
+  </div><!-- fin panel-wrapper -->
+
+  <!-- 3. Dropzone -->
+  <div class="dropzone">
     <input type="file" id="file3d-upload-init" accept=".stl,.step,.stp" hidden />
     <div class="dz-content">
       <div class="plus">+</div>
-      <p>Déposez vos fichiers 3D ici<br />ou sélectionnez un STL / STEP</p>
+      <p>Déposez vos fichiers 3D ici<br>ou Sélectionnez des fichiers STL ou STEP</p>
     </div>
   </div>
 
-  <!-- Boutons bas -->
+  <!-- 4. Boutons bas -->
   <div class="actions">
     <button class="btn negotiate">Négocier vos tarifs</button>
     <button class="btn quote">Générer un devis</button>
     <button class="btn order">Commander maintenant</button>
   </div>
-
-  <!-- Template de configuration -->
-  <template id="config-template">
-    <div class="panel-wrapper">
-
-      <!-- Panel 4 colonnes -->
-      <div class="panel">
-        <!-- Col 1 : Aperçu 3D -->
-        <div class="col preview">
-          <div class="viewer">
-            <div class="progress-overlay hidden"><span>0%</span></div>
-          </div>
-          <p class="dims">
-            Dimensions :<br />
-            120.00 × 65.00 × 10.00 mm<br />
-            Volume : 45.22 cm³
-          </p>
-        </div>
-
-        <!-- Col 2 : Sélections -->
-        <div class="col settings">
-          <div class="field">
-            <label>Technologie</label>
-            <select><option>FDM</option><option>SLA</option><option>SLS</option></select>
-          </div>
-          <div class="field">
-            <label>Matériaux</label>
-            <select><option>PLA</option><option>ABS</option><option>PETG</option></select>
-          </div>
-          <div class="field">
-            <label>Finition</label>
-            <select>
-              <option disabled selected>Sélectionnez</option>
-              <option>Brut</option><option>Poli</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Couleur</label>
-            <select>
-              <option disabled selected>Sélectionnez</option>
-              <option>Blanc</option><option>Noir</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Col 3 : Extras -->
-        <div class="col extras">
-          <div class="field">
-            <label>Inserts / taraudages manuels</label>
-            <div class="slider-container">
-              <input type="range" min="0" max="50" value="0" class="inserts-range" />
-              <span class="inserts-count">0</span>
-            </div>
-          </div>
-          <div class="field delivery">
-            <label>Délai de livraison</label>
-            <div class="opts">
-              <div class="opt" data-type="fast">Fast<br /><span>Mardi 29 Avril</span></div>
-              <div class="opt active" data-type="standard">Standard<br /><span>Mardi 29 Avril</span></div>
-              <div class="opt" data-type="eco">Eco<br /><span>Mardi 29 Avril</span></div>
-            </div>
-          </div>
-          <div class="field checks">
-            <label><input type="checkbox" /> Contrôle du fichier par un expert</label>
-            <label><input type="checkbox" /> Conserver l'orientation originale</label>
-          </div>
-        </div>
-
-        <!-- Col 4 : Récap tarifs -->
-        <div class="col summary">
-          <div class="summary-header">
-            <div class="field qty-order">
-              <label>Quantité</label>
-              <input type="number" value="1" min="1" class="quantity" />
-            </div>
-            <div class="field">
-              <label>Unité (EUR)</label>
-              <div class="unit-price">198.41</div>
-            </div>
-            <div class="field">
-              <label>Total (EUR)</label>
-              <div class="total-price">198.41</div>
-            </div>
-          </div>
-          <table>
-            <thead>
-              <tr><th>Quantité</th><th>Unité (€)</th><th>Total (€)</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>1</td><td>198.41</td><td>198.41</td></tr>
-              <tr><td>2</td><td>196.80</td><td>393.60</td></tr>
-              <tr><td>3</td><td>195.98</td><td>587.94</td></tr>
-              <tr><td>4</td><td>195.46</td><td>781.84</td></tr>
-              <tr><td>5</td><td>195.07</td><td>975.35</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Toolbar gris (INTÉGRÉ dans le cadre) -->
-      <div class="toolbar">
-        <div class="toolbar-left">
-          <button class="icon-btn" title="Supprimer"><i class="material-icons">delete</i></button>
-          <button class="icon-btn" title="Dupliquer"><i class="material-icons">content_copy</i></button>
-        </div>
-        <div class="toolbar-right">
-          <input type="text" placeholder="Commentaire…" />
-          <div class="file-import-section">
-            <label for="file-import">
-              Joindre un fichier (pdf, txt, doc, docx, xlsx, pptx, jpg, jpeg, png)
-            </label>
-            <input
-              type="file"
-              id="file-import"
-              class="file-import"
-              accept=".pdf,.txt,.doc,.docx,.xlsx,.pptx,.jpg,.jpeg,.png"
-            />
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </template>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
