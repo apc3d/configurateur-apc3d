@@ -20,7 +20,7 @@
   <!-- Conteneur de configs -->
   <div id="configs-container"></div>
 
-  <!-- Dropzone secondaire (hors cadre), cachée initialement -->
+  <!-- Dropzones -->
   <div class="dropzone secondary-dropzone hidden" id="secondary-dropzone">
     <input type="file" id="file3d-upload2" accept=".stl,.step,.stp" hidden />
     <div class="dz-content">
@@ -29,7 +29,6 @@
     </div>
   </div>
 
-  <!-- Dropzone initiale interactive (hors cadre) -->
   <div class="dropzone" id="initial-dropzone">
     <input type="file" id="file3d-upload-init" accept=".stl,.step,.stp" hidden />
     <div class="dz-content">
@@ -48,10 +47,8 @@
   <!-- Template de configuration -->
   <template id="config-template">
     <div class="panel-wrapper">
-
-      <!-- Panel 4 colonnes -->
       <div class="panel">
-        <!-- Col 1 : Aperçu 3D + REF -->
+        <!-- Col 1 : Aperçu + Ref -->
         <div class="col preview">
           <div class="viewer">
             <div class="progress-overlay hidden"><span>0%</span></div>
@@ -113,7 +110,7 @@
           </div>
         </div>
 
-        <!-- Col 4 : Récap tarifs -->
+        <!-- Col 4 : Récap tarifs + tableau -->
         <div class="col summary">
           <div class="summary-header">
             <div class="field qty-order">
@@ -129,10 +126,22 @@
               <div class="total-price">198.41</div>
             </div>
           </div>
+          <table class="pricing-table">
+            <thead>
+              <tr><th>Quantité</th><th>Unité (€)</th><th>Total (€)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>198.41</td><td>198.41</td></tr>
+              <tr><td>2</td><td>196.80</td><td>393.60</td></tr>
+              <tr><td>3</td><td>195.98</td><td>587.94</td></tr>
+              <tr><td>4</td><td>195.46</td><td>781.84</td></tr>
+              <tr><td>5</td><td>195.07</td><td>975.35</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <!-- Toolbar gris (INTÉGRÉ dans le cadre) -->
+      <!-- Toolbar -->
       <div class="toolbar">
         <div class="toolbar-left">
           <button class="icon-btn" title="Supprimer"><i class="material-icons">delete</i></button>
