@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Configuration 3D</title>
+  <title>Configuration 3D</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -25,7 +25,7 @@
     <input type="file" id="file3d-upload2" accept=".stl,.step,.stp" hidden />
     <div class="dz-content">
       <div class="plus">+</div>
-      <p>Déposez vos fichiers 3D ici<br />ou sélectionnez un STL / STEP</p>
+      <p>Déposez vos fichiers 3D ici<br />ou sélectionnez un STL / STEP</p>
     </div>
   </div>
 
@@ -34,7 +34,7 @@
     <input type="file" id="file3d-upload-init" accept=".stl,.step,.stp" hidden />
     <div class="dz-content">
       <div class="plus">+</div>
-      <p>Déposez vos fichiers 3D ici<br />ou sélectionnez un STL / STEP</p>
+      <p>Déposez vos fichiers 3D ici<br />ou sélectionnez un STL / STEP</p>
     </div>
   </div>
 
@@ -56,10 +56,14 @@
           <div class="viewer">
             <div class="progress-overlay hidden"><span>0%</span></div>
           </div>
+
+          <!-- AJOUT : affichage de la REF -->
+          <p class="ref">Ref : <span class="filename"></span></p>
+
           <p class="dims">
-            Dimensions :<br />
-            120.00 × 65.00 × 10.00 mm<br />
-            Volume : 45.22 cm³
+            Dimensions :<br />
+            120.00 × 65.00 × 10.00 mm<br />
+            Volume : 45.22 cm³
           </p>
         </div>
 
@@ -92,18 +96,18 @@
         <!-- Col 3 : Extras -->
         <div class="col extras">
           <div class="field">
-            <label>Inserts / taraudages manuels</label>
+            <label>Inserts / taraudages manuels</label>
             <div class="slider-container">
               <input type="range" min="0" max="50" value="0" class="inserts-range" />
               <span class="inserts-count">1</span>
             </div>
           </div>
           <div class="field delivery">
-            <label>Délai de livraison</label>
+            <label>Délai de livraison</label>
             <div class="opts">
-              <div class="opt" data-type="fast">Fast<br /><span>Mardi 29 Avril</span></div>
-              <div class="opt active" data-type="standard">Standard<br /><span>Mardi 29 Avril</span></div>
-              <div class="opt" data-type="eco">Eco<br /><span>Mardi 29 Avril</span></div>
+              <div class="opt" data-type="fast">Fast<br /><span>Mardi 29 Avril</span></div>
+              <div class="opt active" data-type="standard">Standard<br /><span>Mardi 29 Avril</span></div>
+              <div class="opt" data-type="eco">Eco<br /><span>Mardi 29 Avril</span></div>
             </div>
           </div>
           <div class="field checks">
@@ -120,17 +124,17 @@
               <input type="number" value="1" min="1" class="quantity" />
             </div>
             <div class="field">
-              <label>Unité (EUR)</label>
+              <label>Unité (EUR)</label>
               <div class="unit-price">198.41</div>
             </div>
             <div class="field">
-              <label>Total (EUR)</label>
+              <label>Total (EUR)</label>
               <div class="total-price">198.41</div>
             </div>
           </div>
           <table>
             <thead>
-              <tr><th>Quantité</th><th>Unité (€)</th><th>Total (€)</th></tr>
+              <tr><th>Quantité</th><th>Unité (€)</th><th>Total (€)</th></tr>
             </thead>
             <tbody>
               <tr><td>1</td><td>198.41</td><td>198.41</td></tr>
