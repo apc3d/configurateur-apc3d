@@ -61,7 +61,7 @@ body {
 
 /* Col 1 : Aperçu */
 .viewer {
-  position:relative; width:100%; height:200px;
+  position:relative; width:100%; height:150px;
   background:#FFFFFF; border:1px solid var(--grey-med);
   margin-bottom:4px;
 }
