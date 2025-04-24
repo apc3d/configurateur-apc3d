@@ -74,6 +74,13 @@ body {
 .progress-overlay.hidden { display:none; }
 .dims { font-size:12px; line-height:1.4; }
 
+/* AJOUT : style pour la référence */
+.ref {
+  font-size:12px;
+  margin:4px 0;
+  font-weight:500;
+}
+
 /* Col 2 */
 .settings { display:flex; flex-direction:column; gap:12px; }
 .field { display:flex; flex-direction:column; }
