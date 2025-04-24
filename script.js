@@ -1,8 +1,10 @@
 // script.js
 
+// three.js et STLLoader sont chargés via <script> dans index.html
+
 let scene, camera, renderer, mesh;
 
-// Initialise un viewer Three.js pour un conteneur donné
+// Initialise un viewer pour un conteneur donné
 function initViewer(container) {
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(
@@ -12,7 +14,10 @@ function initViewer(container) {
     1000
   );
   renderer = new THREE.WebGLRenderer({ antialias: true });
+
+  // Couleur de fond du canvas (blanc)
   renderer.setClearColor(0xFFFFFF, 1);
+
   renderer.setSize(container.clientWidth, container.clientHeight);
   container.appendChild(renderer.domElement);
   scene.add(new THREE.AmbientLight(0x404040));
@@ -26,7 +31,7 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-// Crée un bloc de config, injecte le STL et affiche la ref
+// Crée une nouvelle config en clonant le template et en y injectant le File STL
 function createConfig(file) {
   const container = document.getElementById('configs-container');
   const tpl       = document.getElementById('config-template');
@@ -37,20 +42,18 @@ function createConfig(file) {
   const viewerEl   = wrapper.querySelector('.viewer');
   const overlay    = wrapper.querySelector('.progress-overlay');
   const overlayTxt = overlay.querySelector('span');
-  const fileNameEl = wrapper.querySelector('.file-name');
   const qtyInput   = wrapper.querySelector('.quantity');
   const unitPrice  = wrapper.querySelector('.unit-price');
   const totalPrice = wrapper.querySelector('.total-price');
   const slider     = wrapper.querySelector('.inserts-range');
   const sliderCnt  = wrapper.querySelector('.inserts-count');
   const opts       = wrapper.querySelectorAll('.opt');
+  const import2D   = wrapper.querySelector('.file-import');
 
-  // Affiche le nom du fichier
-  fileNameEl.textContent = file.name;
-
+  // Initialise le viewer dans ce bloc
   initViewer(viewerEl);
 
-  // Lecture du STL
+  // Lecture directe du File STL pour afficher l'aperçu
   overlay.classList.remove('hidden');
   const reader = new FileReader();
   reader.onprogress = e => {
@@ -61,11 +64,14 @@ function createConfig(file) {
   reader.onload = ev => {
     const geom = new THREE.STLLoader().parse(ev.target.result);
     if (mesh) scene.remove(mesh);
-    mesh = new THREE.Mesh(geom, new THREE.MeshPhongMaterial({ color: 0x606060 }));
+    mesh = new THREE.Mesh(
+      geom,
+      new THREE.MeshPhongMaterial({ color: 0x606060 })
+    );
     mesh.scale.set(0.5, 0.5, 0.5);
     scene.add(mesh);
 
-    // Recentre
+    // Recentre le mesh
     const center = new THREE.Box3()
       .setFromObject(mesh)
       .getCenter(new THREE.Vector3());
@@ -82,7 +88,7 @@ function createConfig(file) {
     sliderCnt.textContent = e.target.value;
   });
 
-  // Sélection délai
+  // Choix délai
   opts.forEach(opt =>
     opt.addEventListener('click', () => {
       opts.forEach(o => o.classList.remove('active'));
@@ -90,15 +96,18 @@ function createConfig(file) {
     })
   );
 
-  // Quantité → total
+  // Quantité / Prix
   qtyInput.addEventListener('change', () => {
     const q = parseInt(qtyInput.value) || 1;
     qtyInput.value = q;
     totalPrice.textContent = (q * parseFloat(unitPrice.textContent)).toFixed(2);
   });
+
+  // Import PDF/IMG (le navigateur gère l'affichage du nom de fichier)
+  import2D.addEventListener('change', () => {});
 }
 
-// Configure dropzone (click + drag'n'drop)
+// Configure le click & drag‑drop sur une dropzone
 function setupDropZone(zone, input, onFile) {
   zone.addEventListener('click', () => input.click());
   zone.addEventListener('dragover', e => {
@@ -134,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     secZone.classList.remove('hidden');
   });
 
-  // Dropzone secondaire
+  // Dropzone secondaire (pour les configs suivantes)
   setupDropZone(secZone, secIn, file => {
     createConfig(file);
   });

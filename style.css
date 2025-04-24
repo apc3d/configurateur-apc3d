@@ -72,10 +72,6 @@ body {
   padding:4px 8px; border-radius:4px; font-weight:600;
 }
 .progress-overlay.hidden { display:none; }
-.file-ref {
-  font-size:13px; margin-bottom:4px; color:var(--grey-dark);
-}
-.file-ref .file-name { font-weight:600; }
 .dims { font-size:12px; line-height:1.4; }
 
 /* Col 2 */
@@ -111,6 +107,13 @@ input[type=range] { flex:1; }
 }
 .unit-price,
 .total-price { background:var(--orange); color:#fff; border-radius:2px; }
+.summary table {
+  margin-top:auto; width:100%; border-collapse:collapse; font-size:12px;
+}
+.summary th,
+.summary td {
+  border:1px solid var(--grey-med); padding:4px; text-align:center;
+}
 
 /* Toolbar gris INTÉGRÉ */
 .toolbar {
@@ -140,9 +143,3 @@ input[type=range] { flex:1; }
 .negotiate { border:2px solid var(--blue); background:#fff; color:var(--blue); }
 .quote     { border:1px solid var(--grey-med); background:#fff; color:var(--grey-dark); }
 .order     { border:none; background:var(--orange); color:#fff; }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .panel { grid-template-columns:1fr; }
-  .summary { background:transparent; padding:0; }
-}
