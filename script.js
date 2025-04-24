@@ -38,7 +38,14 @@ function createConfig(file) {
   const clone     = tpl.content.cloneNode(true);
   container.appendChild(clone);
 
-  const wrapper    = container.lastElementChild;
+  const wrapper = container.lastElementChild;
+
+  // AJOUT : afficher le nom de fichier sous l'aperçu 3D
+  const filenameEl = wrapper.querySelector('.filename');
+  if (filenameEl) {
+    filenameEl.textContent = file.name;
+  }
+
   const viewerEl   = wrapper.querySelector('.viewer');
   const overlay    = wrapper.querySelector('.progress-overlay');
   const overlayTxt = overlay.querySelector('span');
@@ -107,7 +114,7 @@ function createConfig(file) {
   import2D.addEventListener('change', () => {});
 }
 
-// Configure le click & drag‑drop sur une dropzone
+// Configure le click & drag-drop sur une dropzone
 function setupDropZone(zone, input, onFile) {
   zone.addEventListener('click', () => input.click());
   zone.addEventListener('dragover', e => {
