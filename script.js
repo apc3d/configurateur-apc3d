@@ -1,7 +1,8 @@
-// Variables pour three.js
+// script.js
+
 let scene, camera, renderer, mesh;
 
-// Initialise le viewer dans un container donné
+// Initialise un viewer Three.js pour un conteneur donné
 function initViewer(container) {
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(
@@ -18,113 +19,123 @@ function initViewer(container) {
   animate();
 }
 
-// Animation boucle
+// Boucle d’animation
 function animate() {
   requestAnimationFrame(animate);
   if (mesh) mesh.rotation.y += 0.01;
   renderer.render(scene, camera);
 }
 
-// Met à jour les prix
-function updatePrices() {
-  const qtyInput = document.getElementById('quantity');
-  const unitPrice = parseFloat(document.getElementById('unit-price').textContent);
-  const totalPrice = document.getElementById('total-price');
-  let q = parseInt(qtyInput.value) || 1;
-  qtyInput.value = q;
-  totalPrice.textContent = (q * unitPrice).toFixed(2);
-}
+// Crée un bloc de config, injecte le STL et affiche la ref
+function createConfig(file) {
+  const container = document.getElementById('configs-container');
+  const tpl       = document.getElementById('config-template');
+  const clone     = tpl.content.cloneNode(true);
+  container.appendChild(clone);
 
-// Initialise tout à l'ouverture du document
-document.addEventListener('DOMContentLoaded', () => {
+  const wrapper    = container.lastElementChild;
+  const viewerEl   = wrapper.querySelector('.viewer');
+  const overlay    = wrapper.querySelector('.progress-overlay');
+  const overlayTxt = overlay.querySelector('span');
+  const fileNameEl = wrapper.querySelector('.file-name');
+  const qtyInput   = wrapper.querySelector('.quantity');
+  const unitPrice  = wrapper.querySelector('.unit-price');
+  const totalPrice = wrapper.querySelector('.total-price');
+  const slider     = wrapper.querySelector('.inserts-range');
+  const sliderCnt  = wrapper.querySelector('.inserts-count');
+  const opts       = wrapper.querySelectorAll('.opt');
 
-  // Onglets (affichage d'état)
-  document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-    });
-  });
+  // Affiche le nom du fichier
+  fileNameEl.textContent = file.name;
 
-  // Range Inserts
-  const slider = document.getElementById('insertsRange'),
-        sliderCnt = document.getElementById('insertsCount');
+  initViewer(viewerEl);
+
+  // Lecture du STL
+  overlay.classList.remove('hidden');
+  const reader = new FileReader();
+  reader.onprogress = e => {
+    if (e.lengthComputable) {
+      overlayTxt.textContent = Math.floor((e.loaded / e.total) * 100) + '%';
+    }
+  };
+  reader.onload = ev => {
+    const geom = new THREE.STLLoader().parse(ev.target.result);
+    if (mesh) scene.remove(mesh);
+    mesh = new THREE.Mesh(geom, new THREE.MeshPhongMaterial({ color: 0x606060 }));
+    mesh.scale.set(0.5, 0.5, 0.5);
+    scene.add(mesh);
+
+    // Recentre
+    const center = new THREE.Box3()
+      .setFromObject(mesh)
+      .getCenter(new THREE.Vector3());
+    mesh.position.sub(center);
+    camera.position.set(0, 0, 100);
+    camera.lookAt(scene.position);
+
+    overlay.classList.add('hidden');
+  };
+  reader.readAsArrayBuffer(file);
+
+  // Slider inserts
   slider.addEventListener('input', e => {
     sliderCnt.textContent = e.target.value;
   });
 
-  // Délai de livraison
-  document.querySelectorAll('.opt').forEach(opt => {
+  // Sélection délai
+  opts.forEach(opt =>
     opt.addEventListener('click', () => {
-      document.querySelectorAll('.opt').forEach(o => o.classList.remove('active'));
+      opts.forEach(o => o.classList.remove('active'));
       opt.classList.add('active');
-    });
+    })
+  );
+
+  // Quantité → total
+  qtyInput.addEventListener('change', () => {
+    const q = parseInt(qtyInput.value) || 1;
+    qtyInput.value = q;
+    totalPrice.textContent = (q * parseFloat(unitPrice.textContent)).toFixed(2);
   });
+}
 
-  // Mise à jour prix
-  document.getElementById('quantity').addEventListener('change', updatePrices);
-
-  // Fichier PDF/Image
-  const fileUpload2D = document.getElementById('file-upload'),
-        fileStatus = document.getElementById('file-status');
-  fileUpload2D.addEventListener('change', () => {
-    fileStatus.textContent = fileUpload2D.files.length
-      ? `${fileUpload2D.files[0].name} chargé`
-      : '';
-  });
-
-  // Setup dropzone initiale
-  const dzInit = document.getElementById('initial-dropzone');
-  const input3D = document.getElementById('file3d-upload-init');
-  setupDropZone(dzInit, input3D, file => {
-    // Affiche REF
-    document.querySelector('.file-name').textContent = file.name;
-    // Initialise le 3D et charge
-    const reader = new FileReader();
-    const overlay = document.querySelector('.progress-overlay');
-    const overlayTxt = overlay.querySelector('span');
-    overlay.classList.remove('hidden');
-    reader.onprogress = e => {
-      if (e.lengthComputable) {
-        overlayTxt.textContent = Math.floor((e.loaded / e.total) * 100) + '%';
-      }
-    };
-    reader.onload = ev => {
-      const geom = new THREE.STLLoader().parse(ev.target.result);
-      if (mesh) scene.remove(mesh);
-      mesh = new THREE.Mesh(
-        geom,
-        new THREE.MeshPhongMaterial({ color: 0x606060 })
-      );
-      mesh.scale.set(0.5,0.5,0.5);
-      scene.add(mesh);
-      // recentrage
-      const center = new THREE.Box3()
-        .setFromObject(mesh)
-        .getCenter(new THREE.Vector3());
-      mesh.position.sub(center);
-      camera.position.set(0,0,100);
-      camera.lookAt(scene.position);
-      overlay.classList.add('hidden');
-    };
-    reader.readAsArrayBuffer(file);
-  });
-
-});
-
-// Configure une dropzone (click + drag&drop)
+// Configure dropzone (click + drag'n'drop)
 function setupDropZone(zone, input, onFile) {
   zone.addEventListener('click', () => input.click());
   zone.addEventListener('dragover', e => {
-    e.preventDefault(); zone.classList.add('dragover');
+    e.preventDefault();
+    zone.classList.add('dragover');
   });
-  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+  zone.addEventListener('dragleave', () => {
+    zone.classList.remove('dragover');
+  });
   zone.addEventListener('drop', e => {
-    e.preventDefault(); zone.classList.remove('dragover');
-    if (e.dataTransfer.files.length) onFile(e.dataTransfer.files[0]);
+    e.preventDefault();
+    zone.classList.remove('dragover');
+    if (!e.dataTransfer.files.length) return;
+    onFile(e.dataTransfer.files[0]);
   });
   input.addEventListener('change', () => {
-    if (input.files.length) onFile(input.files[0]);
+    if (!input.files.length) return;
+    onFile(input.files[0]);
     input.value = '';
   });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const initZone = document.getElementById('initial-dropzone');
+  const initIn   = document.getElementById('file3d-upload-init');
+  const secZone  = document.getElementById('secondary-dropzone');
+  const secIn    = document.getElementById('file3d-upload2');
+
+  // Dropzone initiale
+  setupDropZone(initZone, initIn, file => {
+    createConfig(file);
+    initZone.style.display = 'none';
+    secZone.classList.remove('hidden');
+  });
+
+  // Dropzone secondaire
+  setupDropZone(secZone, secIn, file => {
+    createConfig(file);
+  });
+});
